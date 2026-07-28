@@ -12,6 +12,7 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     include: ["src/**/*.test.{ts,tsx}", "next.config.test.ts"],
+    maxWorkers: 1,
     setupFiles: ["./src/test/setup.ts"],
     coverage: {
       provider: "v8",
@@ -22,6 +23,7 @@ export default defineConfig({
         "src/components/ui/**/*.{ts,tsx}",
         "src/config/**/*.ts",
         "src/constants/**/*.ts",
+        "src/features/auth/**/*.{ts,tsx}",
         "src/features/foundation/**/*.{ts,tsx}",
         "src/lib/**/*.ts",
         "src/types/**/*.ts",

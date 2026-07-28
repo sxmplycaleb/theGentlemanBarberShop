@@ -1,4 +1,14 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@clerk/nextjs", () => ({
+  ClerkProvider: ({
+    children,
+    dynamic,
+  }: {
+    readonly children: React.ReactNode;
+    readonly dynamic?: boolean;
+  }) => <section data-dynamic={String(dynamic)}>{children}</section>,
+}));
 
 import RootLayout, { metadata } from "@/app/layout";
 
@@ -13,5 +23,8 @@ describe("RootLayout", () => {
     expect(element.type).toBe("html");
     expect(element.props.lang).toBe("en");
     expect(element.props.children.type).toBe("body");
+    expect(element.props.children.props.children.type.name).toBe(
+      "ClerkProvider",
+    );
   });
 });
