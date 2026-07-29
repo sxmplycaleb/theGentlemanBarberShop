@@ -1,6 +1,7 @@
 import { Scissors } from "lucide-react";
 
 import { APP_NAME } from "@/constants/app";
+import { AuthNavigation } from "@/features/auth/presentation/auth-navigation";
 import { FOUNDATION_STATUS } from "@/features/foundation/constants/foundation.constants";
 
 export function FoundationPage() {
@@ -23,6 +24,7 @@ export function FoundationPage() {
           <span className="text-muted-foreground text-xs">
             Premium grooming
           </span>
+          <AuthNavigation />
         </header>
 
         <section className="grid flex-1 items-end gap-12 py-16 lg:grid-cols-[minmax(0,1fr)_22rem] lg:py-20">

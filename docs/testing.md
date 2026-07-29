@@ -9,6 +9,8 @@ Vitest and Testing Library verify:
 - Health endpoint status, payload, cache policy, and method behavior
 - Environment validation, site configuration, utilities, shared UI primitives,
   and security header configuration
+- Clerk proxy configuration, authenticated account protection, and
+  authentication presentation components
 
 Coverage is collected with the V8 provider. The configured minimum is 80 percent
 for statements, branches, functions, and lines across the Milestone 0 foundation
@@ -22,6 +24,8 @@ Playwright runs Chromium in desktop and mobile profiles. It verifies:
 - The viewport has no horizontal overflow
 - Axe reports no automated accessibility violations
 - The health endpoint responds successfully through the running application
+- The sign-in page shell renders
+- Anonymous visitors are redirected away from protected account access
 
 Playwright starts the compiled Next.js production server. Run `npm run build`
 before `npm run test:e2e` when executing the checks individually.

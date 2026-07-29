@@ -34,4 +34,10 @@ Status: `200 OK`
 
 The response includes `Cache-Control: no-store`.
 
-No additional API endpoints are part of Milestone 0.
+## Authentication
+
+Clerk owns its authentication callback and frontend API traffic through the
+official Next.js App Router integration. These routes are not part of the
+application JSON API contract and do not use the shared response envelope.
+
+No custom authentication API endpoints are part of Milestone 1.

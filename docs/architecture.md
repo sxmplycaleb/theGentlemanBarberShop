@@ -2,8 +2,8 @@
 
 ## Scope
 
-Milestone 0 establishes a deployable application foundation. It contains no
-business workflows or integrations.
+Milestone 1 establishes Clerk authentication on top of the deployable
+application foundation. It contains no database-backed business workflows.
 
 ## Runtime
 
@@ -34,6 +34,10 @@ configuration is validated before use, and cross-feature contracts live in
 The foundation feature contains only milestone status presentation. Services,
 repositories, database adapters, and business validation layers are not created
 until a requirement needs them.
+
+The auth feature owns Clerk-backed presentation and authenticated account entry
+points only. Clerk remains the sole authentication provider, and Clerk-managed
+sessions are used without a database adapter or custom user persistence.
 
 ## Import Policy
 
