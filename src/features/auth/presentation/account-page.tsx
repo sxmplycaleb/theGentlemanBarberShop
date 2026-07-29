@@ -1,6 +1,8 @@
 import { UserButton } from "@clerk/nextjs";
-import { ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { Scissors, ShieldCheck } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/constants/app";
 
 interface AccountPageProps {
@@ -20,22 +22,44 @@ export function AccountPage({ userId }: AccountPageProps) {
         </header>
 
         <section className="grid flex-1 place-items-center py-16">
-          <div className="border-border bg-card flex w-full max-w-xl items-start gap-4 border p-6">
-            <span className="border-border grid size-11 shrink-0 place-items-center border">
-              <ShieldCheck
-                aria-hidden="true"
-                className="size-5"
-                strokeWidth={1.75}
-              />
-            </span>
-            <div>
-              <h2 className="text-lg font-semibold">Signed in</h2>
-              <p className="text-muted-foreground mt-2 text-sm leading-6">
-                Clerk is managing the active session for this browser.
-              </p>
-              <p className="text-muted-foreground mt-4 text-xs break-all">
-                Session user: {userId}
-              </p>
+          <div className="grid w-full max-w-xl gap-4">
+            <div className="border-border bg-card flex items-start gap-4 border p-6">
+              <span className="border-border grid size-11 shrink-0 place-items-center border">
+                <ShieldCheck
+                  aria-hidden="true"
+                  className="size-5"
+                  strokeWidth={1.75}
+                />
+              </span>
+              <div>
+                <h2 className="text-lg font-semibold">Signed in</h2>
+                <p className="text-muted-foreground mt-2 text-sm leading-6">
+                  Clerk is managing the active session for this browser.
+                </p>
+                <p className="text-muted-foreground mt-4 text-xs break-all">
+                  Session user: {userId}
+                </p>
+              </div>
+            </div>
+            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
+              <div className="flex items-center gap-4">
+                <span className="border-border grid size-11 shrink-0 place-items-center border">
+                  <Scissors
+                    aria-hidden="true"
+                    className="size-5"
+                    strokeWidth={1.75}
+                  />
+                </span>
+                <div>
+                  <h2 className="text-lg font-semibold">Services</h2>
+                  <p className="text-muted-foreground mt-1 text-sm">
+                    Manage categories and services.
+                  </p>
+                </div>
+              </div>
+              <Button asChild variant="outline">
+                <Link href="/account/services">Open</Link>
+              </Button>
             </div>
           </div>
         </section>
