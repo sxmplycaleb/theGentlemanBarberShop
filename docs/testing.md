@@ -10,6 +10,8 @@ Vitest and Testing Library verify:
 - Environment validation, site configuration, utilities, shared UI primitives,
   and security header configuration
 - Supabase database configuration and server client creation
+- Supabase generated database types compile against the approved Milestone 3
+  business schema
 - Clerk proxy configuration, authenticated account protection, and
   authentication presentation components
 
@@ -30,6 +32,10 @@ Playwright runs Chromium in desktop and mobile profiles. It verifies:
 
 Playwright starts the compiled Next.js production server. Run `npm run build`
 before `npm run test:e2e` when executing the checks individually.
+
+Milestone 3 does not add browser-facing workflows, pages, forms, CRUD endpoints,
+or APIs, so end-to-end coverage remains focused on the existing foundation and
+authentication surfaces.
 
 ## Local Commands
 

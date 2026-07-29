@@ -2,10 +2,11 @@
 
 Production business management platform for The Gentleman BarberShop and Spa.
 
-## Milestone 1
+## Milestone 3
 
-This repository currently contains the production project foundation and Clerk
-authentication integration:
+This repository currently contains the production project foundation, Clerk
+authentication integration, Supabase database foundation, and core business
+schema foundation:
 
 - Next.js App Router with strict TypeScript
 - Tailwind CSS and shadcn/ui configuration
@@ -15,14 +16,18 @@ authentication integration:
 - Clerk-managed authentication and sessions
 - Sign-in and sign-out entry points with Clerk-managed Google authentication
 - Route protection for authenticated account access
+- Supabase PostgreSQL database configuration
+- Forward-only business schema migrations for service categories, services,
+  staff, and business settings
+- Row Level Security enabled on business schema tables
 - ESLint, Prettier, Husky, and lint-staged
 - Vitest unit tests and Playwright end-to-end tests
 - GitHub Actions continuous integration
 
-Database access, user persistence, RBAC, staff roles, profile management,
-booking, payments, dashboards, gallery, analytics, notifications, SEO
-implementation, and all other business capabilities are intentionally outside
-this milestone.
+Customer profiles, booking, appointments, payments, notifications, analytics,
+dashboards, gallery, uploads, RBAC, CRUD endpoints, forms, UI, server actions,
+repositories, SEO implementation, and all other business workflows are
+intentionally outside this milestone.
 
 ## Requirements
 
