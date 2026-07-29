@@ -17,6 +17,8 @@ hosting environment or managed Next.js platform.
 - Environment values documented in `.env.example`
 - HTTPS termination at the hosting platform or reverse proxy
 - Clerk application credentials configured as deployment secrets
+- Supabase project URL and anonymous key configured for database access
+- Optional Supabase service-role key configured only as a server-side secret
 
 ## Continuous Integration
 
@@ -24,6 +26,7 @@ The GitHub Actions workflow runs on pull requests and pushes to `main`. It check
 formatting, linting, strict types, unit coverage, production build output, and
 Playwright tests before code is considered releasable.
 
-No production hosting project, deployment credentials, custom domain, database,
-or business external service is configured in Milestone 1. Clerk is the only
-approved authentication integration.
+No production hosting project, deployment credentials, custom domain, or
+business external service is configured in Milestone 2. Supabase PostgreSQL is
+the approved database, and Clerk is the only approved authentication
+integration.

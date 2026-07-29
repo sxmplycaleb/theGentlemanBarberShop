@@ -1,0 +1,9 @@
+-- Milestone 2 database foundation.
+-- Supabase PostgreSQL is the approved database.
+-- Clerk remains the sole authentication provider; Supabase Auth is not used by
+-- application code in this milestone.
+--
+-- This baseline intentionally creates no application tables. Booking, payments,
+-- dashboards, analytics, notifications, gallery, uploads, staff management,
+-- RBAC, business logic, and Clerk user synchronization belong to future
+-- explicitly approved milestones.
