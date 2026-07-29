@@ -14,6 +14,9 @@ fail at application startup or build time rather than being used silently.
 | `NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL` | Browser and server | No         | Default destination after sign-in                                |
 | `NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL` | Browser and server | No         | Default destination after Clerk's standard sign-up flow          |
 | `NEXT_PUBLIC_CLERK_AFTER_SIGN_OUT_URL`            | Browser and server | No         | Default destination after sign-out                               |
+| `NEXT_PUBLIC_SUPABASE_URL`                        | Browser and server | Production | Supabase project URL for database access                         |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY`                   | Browser and server | Production | Supabase anonymous key for database access                       |
+| `SUPABASE_SERVICE_ROLE_KEY`                       | Server only        | No         | Optional service-role key for server-only database utilities     |
 
 `NODE_ENV` is supplied by Next.js and must be `development`, `test`, or
 `production`.
@@ -30,8 +33,9 @@ All `.env*.local` files are ignored by Git. Values prefixed with
 `NEXT_PUBLIC_` are included in browser bundles and must never contain secrets.
 `CLERK_SECRET_KEY` must remain server-side only.
 
-Milestone 1 uses Clerk-managed sessions. No database URL, database adapter, user
-persistence secret, or custom password secret is introduced in this milestone.
+Milestone 2 uses Supabase PostgreSQL for the database foundation. Supabase Auth
+is not used, and Clerk remains the sole authentication provider. Do not use
+`SUPABASE_SERVICE_ROLE_KEY` in browser code or any `NEXT_PUBLIC_` variable.
 
 Google authentication is configured in the Clerk Dashboard as a social
 connection. Google OAuth client credentials must remain in Clerk and Google

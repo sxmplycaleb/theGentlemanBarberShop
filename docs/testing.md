@@ -9,6 +9,7 @@ Vitest and Testing Library verify:
 - Health endpoint status, payload, cache policy, and method behavior
 - Environment validation, site configuration, utilities, shared UI primitives,
   and security header configuration
+- Supabase database configuration and server client creation
 - Clerk proxy configuration, authenticated account protection, and
   authentication presentation components
 

@@ -15,6 +15,10 @@
 - Google authentication is handled through Clerk's managed Google OAuth social
   connection.
 - The account route is protected by Clerk proxy middleware before rendering.
+- Supabase PostgreSQL access is configured for server-side database use without
+  enabling Supabase Auth.
+- Supabase service-role access, when configured, remains server-only and must
+  never be exposed through `NEXT_PUBLIC_` variables.
 - CI runs linting, strict type checks, tests, and a production build.
 - Local secret files and generated artifacts are excluded from Git.
 
@@ -24,8 +28,8 @@ routes and framework scripts.
 
 Authorization, RBAC, staff roles, CSRF controls beyond Clerk's managed session
 flow, rate limiting, audit logging, secure uploads, payment callbacks, and
-data-access controls are not implemented because their owning milestones are
-outside the approved scope.
+business data-access controls are not implemented because their owning
+milestones are outside the approved scope.
 
 Google OAuth client secrets must not be committed to this repository or exposed
 through `NEXT_PUBLIC_` variables. They belong in Clerk and Google Cloud provider
