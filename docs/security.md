@@ -1,6 +1,6 @@
 # Security
 
-## Milestone 8 Controls
+## Milestone 9 Controls
 
 - Strict environment parsing prevents malformed configuration from being used.
 - Clerk's strict Content Security Policy integration applies per-request script
@@ -57,6 +57,17 @@
 - Booking database failures are mapped to stable user-safe messages. The
   bookings table enables Row Level Security, revokes browser-facing roles, and
   explicitly grants only the service role.
+- Every Appointment Workflow page and Server Action independently calls
+  `auth.protect()` before accessing route/action input or data.
+- Appointment Workflow uses only the server-only service-role repository and
+  introduces no public API, Route Handler, browser database client, Supabase
+  Auth integration, RBAC, or appointment persistence model.
+- Strict workflow schemas reject unknown fields. The repository revalidates the
+  canonical transition matrix and applies expected-state, soft-delete, and
+  temporal predicates to the final update.
+- Transition failures use stable user-safe messages. A zero-row conditional
+  update is treated as stale or no longer valid and never exposes raw Supabase,
+  PostgreSQL, or internal response details.
 - Milestone 3 business schema tables have Row Level Security enabled and no
   permissive public access policies.
 - CI runs linting, strict type checks, tests, and a production build.

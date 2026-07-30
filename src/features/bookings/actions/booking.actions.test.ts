@@ -5,7 +5,6 @@ const { revalidatePath } = vi.hoisted(() => ({ revalidatePath: vi.fn() }));
 const repositories = vi.hoisted(() => ({
   createBooking: vi.fn(),
   restoreBooking: vi.fn(),
-  setBookingStatus: vi.fn(),
   softDeleteBooking: vi.fn(),
   updateBooking: vi.fn(),
 }));
@@ -17,7 +16,6 @@ vi.mock("@/features/bookings/data/booking.repository", () => repositories);
 import {
   createBookingAction,
   restoreBookingAction,
-  setBookingStatusAction,
   softDeleteBookingAction,
   updateBookingAction,
 } from "@/features/bookings/actions/booking.actions";
@@ -33,7 +31,6 @@ function bookingFormData(overrides: Record<string, string> = {}) {
     service_id: "3bbc8fb4-f88b-491a-84f4-463b9cda4279",
     staff_id: "c4651894-b328-4873-8ea9-66ca850bcf45",
     start_time: "09:30",
-    status: "pending",
     ...overrides,
   };
   const formData = new FormData();
@@ -87,16 +84,7 @@ describe("booking actions", () => {
     ).resolves.toEqual({ message: "Invalid booking.", success: false });
   });
 
-  it("changes status, deletes, and restores", async () => {
-    await expect(
-      setBookingStatusAction(
-        initialState,
-        actionFormData({ status: "confirmed" }),
-      ),
-    ).resolves.toEqual({
-      message: "Booking status updated.",
-      success: true,
-    });
+  it("deletes and restores", async () => {
     await expect(
       softDeleteBookingAction(initialState, actionFormData()),
     ).resolves.toEqual({ message: "Booking deleted.", success: true });
@@ -105,15 +93,7 @@ describe("booking actions", () => {
     ).resolves.toEqual({ message: "Booking restored.", success: true });
   });
 
-  it("rejects invalid status, delete, and restore input", async () => {
-    expect(
-      (
-        await setBookingStatusAction(
-          initialState,
-          actionFormData({ status: "invalid" }),
-        )
-      ).success,
-    ).toBe(false);
+  it("rejects invalid delete and restore input", async () => {
     const invalid = new FormData();
     invalid.set("id", "invalid");
     expect((await softDeleteBookingAction(initialState, invalid)).success).toBe(
@@ -132,14 +112,6 @@ describe("booking actions", () => {
     [
       "updateBooking",
       () => updateBookingAction(bookingId, initialState, bookingFormData()),
-    ],
-    [
-      "setBookingStatus",
-      () =>
-        setBookingStatusAction(
-          initialState,
-          actionFormData({ status: "completed" }),
-        ),
     ],
     [
       "softDeleteBooking",

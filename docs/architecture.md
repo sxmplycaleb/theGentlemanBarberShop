@@ -2,10 +2,10 @@
 
 ## Scope
 
-Milestone 8 adds authenticated Booking Management on top of the
+Milestone 9 adds authenticated Appointment Workflow on top of the
 established foundation, Clerk authentication, Supabase database foundation,
 Services Management, Staff Management, Business Settings, and Customer
-Management architecture.
+Management and Booking Management architecture.
 
 ## Runtime
 
@@ -59,7 +59,17 @@ The bookings feature follows the same feature-owned structure. Its server-only
 repository composes existing customer, staff, and service records into booking
 reads and writes. Protected Server Actions enforce authentication and
 validation, Server Components own page data loading, and Client Components are
-limited to interactive forms and mutation controls.
+limited to interactive forms and mutation controls. Booking Management owns
+scheduling, reference selection, deletion/restoration, and exact-slot
+validation; it no longer owns lifecycle transitions.
+
+The appointments feature is an operational layer over Booking. It owns
+business-date queue filtering, booking workflow projections, lifecycle
+transition validation, protected Server Actions, and presentation under
+`src/features/appointments/`. It introduces no appointment persistence model,
+entity, DTO, or speculative abstraction. The canonical booking transition
+matrix remains in the bookings feature because it defines Booking lifecycle
+rules.
 
 Generic management presentation primitives that are shared by feature forms
 live under `src/components/management/`. The `app` directory remains a
@@ -113,3 +123,13 @@ route is deliberately dependency-free and reports application liveness only.
   customer/staff/service/status/date/deletion filters, stable sorting, and
   pagination. The exact-slot rule is not an availability or duration-overlap
   engine.
+- Appointment Workflow loads relationships as part of one paginated Booking
+  query. Business Settings may be read once independently to resolve the
+  business-local date; no per-row or N+1 relationship reads are permitted.
+- Lifecycle changes use one final conditional update constrained by booking ID,
+  expected status, `deleted_at IS NULL`, and applicable business-date
+  predicates. Zero updated rows map to the stable stale-state contract so stale
+  clients cannot overwrite newer state.
+- Server Components derive `availableTransitions` from the canonical transition
+  matrix and temporal rules. Client Components submit only the transitions
+  supplied by the server.

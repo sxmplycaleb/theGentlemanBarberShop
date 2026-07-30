@@ -27,6 +27,13 @@ Vitest and Testing Library verify:
   repository reference/state/collision checks, protected Server Actions, route
   composition, list and form presentation, accessible feedback, and account
   navigation
+- Canonical booking lifecycle transitions and business-date temporal rules
+- Appointment Workflow URL filter parsing, business-local date resolution,
+  paginated Booking queue composition, joined relationship projection, and
+  atomic expected-state transition predicates
+- Appointment Workflow protected actions and routes, stable stale-state
+  failures, server-derived controls, queue/detail/empty/terminal presentation,
+  and account navigation
 
 Coverage is collected with the V8 provider. The configured minimum is 80 percent
 for statements, branches, functions, and lines across the Milestone 0 foundation
@@ -46,11 +53,16 @@ Playwright runs Chromium in desktop and mobile profiles. It verifies:
 Playwright starts the compiled Next.js production server. Run `npm run build`
 before `npm run test:e2e` when executing the checks individually.
 
-Milestone 8 keeps end-to-end coverage focused on foundation and authentication
+Milestone 9 keeps end-to-end coverage focused on foundation and authentication
 surfaces. Anonymous access to `/account/settings`, `/account/customers`, and
-`/account/bookings` is verified as protected. Authenticated booking writes are
+`/account/bookings`, `/account/appointments`, and an appointment detail route is
+verified as protected. Authenticated booking and lifecycle writes are
 covered by deterministic repository, validation, presentation, page, and
 Server Action tests rather than authenticated CRUD end-to-end tests.
+
+Milestone 9 introduces no migration. Real-database migration status, schema
+drift, generated type verification, database lint, and advisor checks remain
+pending until the approved Supabase development environment is available.
 
 ## Local Commands
 

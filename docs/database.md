@@ -1,9 +1,10 @@
 # Database
 
-## Milestone 8 Scope
+## Milestone 9 Scope
 
-Milestone 8 adds a relational booking table to the existing core business
-schema. Supabase PostgreSQL is the approved primary database, accessed through
+Milestone 9 uses the existing relational booking table and requires no schema
+change or migration. Supabase PostgreSQL is the approved primary database,
+accessed through
 the official
 `@supabase/supabase-js` client from server-side application code.
 
@@ -23,6 +24,8 @@ Database code is isolated under `src/lib/supabase/`:
 
 Services, Staff, Business Settings, Customer Management, and Booking Management
 use feature-owned repositories, validation, presentation, and Server Actions.
+Appointment Workflow uses the same boundary as an operational projection over
+bookings.
 
 ## Business Settings Singleton
 
@@ -77,6 +80,13 @@ Booking records are soft-deleted by setting `deleted_at`. Restoration clears
 `deleted_at` after reference, state, and exact-slot validation. No hard-delete
 path is exposed.
 
+Appointment Workflow reads only current bookings for the selected business
+date, with customer, staff, and service relationships loaded in the paginated
+Booking query. Lifecycle updates change only `bookings.status` and condition on
+booking ID, expected status, `deleted_at IS NULL`, and any applicable temporal
+predicate. No appointment table, entity, DTO, trigger, index, constraint, or
+RLS policy is added by Milestone 9.
+
 ## Core Business Tables
 
 The approved migrations create:
@@ -118,10 +128,14 @@ database types were not regenerated. Migration application, schema-drift
 verification, database lint and advisor checks, and type regeneration remain
 mandatory post-implementation verification steps.
 
+Milestone 9 creates no migration and makes no generated database type change.
+The pending Milestone 8 database-environment verification remains a deployment
+prerequisite before Milestone 9 can be verified against a real database.
+
 ## Out of Scope
 
 Payments, calendar UI and integrations, availability and duration-overlap
 engines, notifications, email, SMS, loyalty, discounts, reporting, analytics,
 walk-ins, public and recurring booking, customer authentication, RBAC,
 Supabase Auth, Clerk user synchronization, and Supabase Storage are not
-implemented in Milestone 8.
+implemented in Milestone 9.

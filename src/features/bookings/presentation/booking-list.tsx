@@ -4,13 +4,9 @@ import { Pagination } from "@/components/management/pagination";
 import { Button } from "@/components/ui/button";
 import {
   restoreBookingAction,
-  setBookingStatusAction,
   softDeleteBookingAction,
 } from "@/features/bookings/actions/booking.actions";
-import {
-  BookingActionForm,
-  BookingStatusActionForm,
-} from "@/features/bookings/presentation/booking-action-form";
+import { BookingActionForm } from "@/features/bookings/presentation/booking-action-form";
 import { BookingManagementControls } from "@/features/bookings/presentation/booking-management-controls";
 import { BookingStatusBadge } from "@/features/bookings/presentation/booking-status-badge";
 import type {
@@ -118,11 +114,11 @@ export function BookingList({
                               Edit
                             </Link>
                           </Button>
-                          <BookingStatusActionForm
-                            action={setBookingStatusAction}
-                            id={booking.id}
-                            status={booking.status}
-                          />
+                          <Button asChild variant="outline">
+                            <Link href={`/account/appointments/${booking.id}`}>
+                              Workflow
+                            </Link>
+                          </Button>
                           <BookingActionForm
                             action={softDeleteBookingAction}
                             id={booking.id}

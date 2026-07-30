@@ -63,3 +63,19 @@ Milestone 8 adds no public JSON API endpoints. Authenticated booking reads occur
 in protected React Server Components, and create, update, status, soft-delete,
 and restore mutations use protected Server Actions with Zod validation. Booking
 data is accessed only through the server-only Supabase repository.
+
+Milestone 9 removes lifecycle status mutation from Booking Management. Booking
+creation remains server-owned as `pending`; scheduling, reference selection,
+soft deletion, restoration, and exact-slot collision validation remain owned by
+Booking Management.
+
+## Appointment Workflow
+
+Milestone 9 adds no public JSON API endpoints or Route Handlers. Protected React
+Server Components load a paginated, business-date booking queue and booking
+detail projections. A protected Server Action performs lifecycle transitions
+with strict Zod validation through the server-only Supabase repository.
+
+Appointment Workflow does not define an appointment resource or DTO. Booking is
+the persisted domain entity and the only database record updated by workflow
+operations.

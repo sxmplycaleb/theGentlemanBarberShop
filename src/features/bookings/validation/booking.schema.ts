@@ -40,19 +40,12 @@ export const bookingFormSchema = z
     service_id: z.uuid("Choose a valid service."),
     staff_id: z.uuid("Choose a valid staff member."),
     start_time: timeSchema,
-    status: bookingStatusSchema,
   })
   .strict();
 
 export const bookingIdSchema = z
   .object({
     id: z.uuid(),
-  })
-  .strict();
-
-export const bookingStatusActionSchema = bookingIdSchema
-  .extend({
-    status: bookingStatusSchema,
   })
   .strict();
 

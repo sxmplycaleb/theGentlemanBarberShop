@@ -64,7 +64,6 @@ describe("BookingForm", () => {
           service_id: ids.service,
           staff_id: ids.staff,
           start_time: "09:30:00",
-          status: "confirmed",
         }}
         options={{
           ...options,
@@ -84,7 +83,7 @@ describe("BookingForm", () => {
       screen.getByRole("option", { name: "Alex (deleted)" }),
     ).toBeVisible();
     expect(screen.getByLabelText("Start time")).toHaveValue("09:30");
-    expect(screen.getByLabelText("Status")).toHaveValue("confirmed");
+    expect(screen.queryByLabelText("Status")).not.toBeInTheDocument();
   });
 
   it("disables saving when required selections are unavailable", () => {

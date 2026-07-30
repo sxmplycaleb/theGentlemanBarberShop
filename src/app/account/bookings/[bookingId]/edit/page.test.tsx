@@ -55,8 +55,8 @@ describe("edit booking page", () => {
     });
     expect(element.props.children.props.booking).toMatchObject({
       booking_date: "2026-08-10",
-      status: "pending",
     });
+    expect(element.props.children.props.booking).not.toHaveProperty("status");
   });
 
   it("returns not found for invalid identifiers", async () => {

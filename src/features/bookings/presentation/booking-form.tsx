@@ -6,7 +6,6 @@ import { useActionState } from "react";
 import { SubmitButton } from "@/components/management/submit-button";
 import { Button } from "@/components/ui/button";
 import {
-  BOOKING_STATUSES,
   type ActionState,
   type BookingRow,
   type BookingSelectionOptions,
@@ -19,12 +18,7 @@ interface BookingFormProps {
   ) => Promise<ActionState>;
   readonly booking?: Pick<
     BookingRow,
-    | "booking_date"
-    | "customer_id"
-    | "service_id"
-    | "staff_id"
-    | "start_time"
-    | "status"
+    "booking_date" | "customer_id" | "service_id" | "staff_id" | "start_time"
   >;
   readonly options: BookingSelectionOptions;
   readonly submitLabel: string;
@@ -91,7 +85,7 @@ export function BookingForm({
         </p>
       ) : null}
 
-      <div className="grid gap-5 sm:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2">
         <SelectField
           defaultValue={booking?.customer_id ?? ""}
           describedBy={describedBy("customer_id")}
@@ -160,23 +154,6 @@ export function BookingForm({
             type="time"
           />
           <FieldError errors={state.errors?.start_time} id="start_time-error" />
-        </label>
-        <label className="grid gap-2 text-sm">
-          <span className="font-medium">Status</span>
-          <select
-            className="border-border bg-background min-h-11 rounded-sm border px-3"
-            defaultValue={booking?.status ?? "pending"}
-            name="status"
-          >
-            {BOOKING_STATUSES.map((status) => (
-              <option key={status} value={status}>
-                {status === "no_show"
-                  ? "No show"
-                  : `${status.charAt(0).toUpperCase()}${status.slice(1)}`}
-              </option>
-            ))}
-          </select>
-          <FieldError errors={state.errors?.status} id="status-error" />
         </label>
       </div>
 

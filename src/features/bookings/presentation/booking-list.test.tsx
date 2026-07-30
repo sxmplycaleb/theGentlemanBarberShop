@@ -3,7 +3,6 @@ import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@/features/bookings/actions/booking.actions", () => ({
   restoreBookingAction: vi.fn(),
-  setBookingStatusAction: vi.fn(),
   softDeleteBookingAction: vi.fn(),
 }));
 
@@ -73,6 +72,10 @@ describe("BookingList", () => {
       `/account/bookings/${id}/edit`,
     );
     expect(screen.getByRole("button", { name: "Delete" })).toBeVisible();
+    expect(screen.getByRole("link", { name: "Workflow" })).toHaveAttribute(
+      "href",
+      `/account/appointments/${id}`,
+    );
     expect(screen.getByText(/1 records/)).toBeVisible();
   });
 

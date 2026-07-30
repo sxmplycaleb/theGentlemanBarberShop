@@ -335,8 +335,8 @@ async function ensureSlotAvailable(
   client: BookingSupabaseClient,
   values: Pick<
     BookingFormValues,
-    "booking_date" | "staff_id" | "start_time" | "status"
-  >,
+    "booking_date" | "staff_id" | "start_time"
+  > & { readonly status: BookingStatus },
   excludeId?: string,
 ) {
   if (values.status === "cancelled") {
@@ -370,10 +370,10 @@ async function ensureSlotAvailable(
 export async function createBooking(values: BookingFormValues) {
   const client = getBookingManagementClient();
   await validateReferences(client, values);
-  await ensureSlotAvailable(client, values);
+  await ensureSlotAvailable(client, { ...values, status: "pending" });
   const { data, error } = await client
     .from("bookings")
-    .insert(values)
+    .insert({ ...values, status: "pending" })
     .select("id")
     .single();
   assertMutation(data, error, "Booking could not be created.");
@@ -388,7 +388,7 @@ export async function updateBooking(id: string, values: BookingFormValues) {
   }
 
   await validateReferences(client, values, current);
-  await ensureSlotAvailable(client, values, id);
+  await ensureSlotAvailable(client, { ...values, status: current.status }, id);
   const { data, error } = await client
     .from("bookings")
     .update(values)
@@ -397,25 +397,6 @@ export async function updateBooking(id: string, values: BookingFormValues) {
     .select("id")
     .maybeSingle();
   assertMutation(data, error, "Booking could not be updated.");
-}
-
-export async function setBookingStatus(id: string, status: BookingStatus) {
-  const client = getBookingManagementClient();
-  const current = await readBookingRow(client, id);
-
-  if (!current || current.deleted_at) {
-    throw new Error("Only current bookings can change status.");
-  }
-
-  await ensureSlotAvailable(client, { ...current, status }, id);
-  const { data, error } = await client
-    .from("bookings")
-    .update({ status })
-    .eq("id", id)
-    .is("deleted_at", null)
-    .select("id")
-    .maybeSingle();
-  assertMutation(data, error, "Booking status could not be updated.");
 }
 
 export async function softDeleteBooking(id: string) {

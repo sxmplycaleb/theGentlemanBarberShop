@@ -54,3 +54,26 @@ test("protects booking management from anonymous visitors", async ({
   expect(response.status()).toBe(307);
   expect(response.headers()["location"]).toContain("/sign-in");
 });
+
+test("protects appointment workflow from anonymous visitors", async ({
+  request,
+}) => {
+  const response = await request.get("/account/appointments", {
+    maxRedirects: 0,
+  });
+
+  expect(response.status()).toBe(307);
+  expect(response.headers()["location"]).toContain("/sign-in");
+});
+
+test("protects appointment details from anonymous visitors", async ({
+  request,
+}) => {
+  const response = await request.get(
+    "/account/appointments/8dbfcfda-7011-4ee8-a0d4-caf0a02c3de2",
+    { maxRedirects: 0 },
+  );
+
+  expect(response.status()).toBe(307);
+  expect(response.headers()["location"]).toContain("/sign-in");
+});

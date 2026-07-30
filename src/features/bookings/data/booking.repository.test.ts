@@ -13,7 +13,6 @@ import {
   listBookings,
   listBookingSelectionOptions,
   restoreBooking,
-  setBookingStatus,
   softDeleteBooking,
   updateBooking,
 } from "@/features/bookings/data/booking.repository";
@@ -43,7 +42,6 @@ const values = {
   service_id: ids.service,
   staff_id: ids.staff,
   start_time: "09:30",
-  status: "pending",
 } as const;
 const filters: BookingListFilters = {
   customerId: "",
@@ -288,14 +286,7 @@ describe("booking repository", () => {
     await expect(createBooking(values)).rejects.toThrow("exact start time");
   });
 
-  it("changes status, soft deletes, and restores with state guards", async () => {
-    mockClient({
-      bookings: [success(booking), success(null), mutation],
-    });
-    await expect(
-      setBookingStatus(ids.booking, "confirmed"),
-    ).resolves.toBeUndefined();
-
+  it("soft deletes and restores with state guards", async () => {
     const deletion = mockClient({ bookings: [mutation] });
     await softDeleteBooking(ids.booking);
     expect(deletion.calls.some((call) => call.includes("deleted_at"))).toBe(
@@ -318,10 +309,6 @@ describe("booking repository", () => {
   it("rejects invalid booking states", async () => {
     mockClient({ bookings: [success({ ...booking, deleted_at: "deleted" })] });
     await expect(updateBooking(ids.booking, values)).rejects.toThrow(
-      "current bookings",
-    );
-    mockClient({ bookings: [success(null)] });
-    await expect(setBookingStatus(ids.booking, "confirmed")).rejects.toThrow(
       "current bookings",
     );
     mockClient({ bookings: [success(booking)] });
