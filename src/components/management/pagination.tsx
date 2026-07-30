@@ -1,7 +1,13 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import type { PaginationMeta } from "@/features/services/types/service-management.types";
+
+export interface PaginationMeta {
+  readonly page: number;
+  readonly pageCount: number;
+  readonly pageSize: number;
+  readonly total: number;
+}
 
 interface PaginationProps {
   readonly pageParam: string;
@@ -29,8 +35,8 @@ export function Pagination({
       className="flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between"
     >
       <p className="text-muted-foreground">
-        Page {pagination.page} of {pagination.pageCount} · {pagination.total}{" "}
-        records
+        Page {pagination.page} of {pagination.pageCount} &middot;{" "}
+        {pagination.total} records
       </p>
       <div className="flex gap-2">
         <Button

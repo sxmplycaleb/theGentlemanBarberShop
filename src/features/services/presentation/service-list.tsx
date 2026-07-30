@@ -1,14 +1,14 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { ManagementControls } from "@/components/management/management-controls";
+import { Pagination } from "@/components/management/pagination";
+import { StatusBadge } from "@/components/management/status-badge";
 import {
   restoreServiceAction,
   setServiceActiveAction,
   softDeleteServiceAction,
 } from "@/features/services/actions/service.actions";
-import { ManagementControls } from "@/features/services/presentation/service-management-controls";
-import { Pagination } from "@/features/services/presentation/pagination";
-import { StatusBadge } from "@/features/services/presentation/status-badge";
 import type {
   PaginatedResult,
   ServiceListFilters,

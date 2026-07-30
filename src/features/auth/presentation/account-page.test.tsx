@@ -16,9 +16,14 @@ describe("AccountPage", () => {
     ).toBeVisible();
     expect(screen.getByText("Signed in")).toBeVisible();
     expect(screen.getByText("Services")).toBeVisible();
-    expect(screen.getByRole("link", { name: "Open" })).toHaveAttribute(
+    expect(screen.getByText("Staff")).toBeVisible();
+    expect(screen.getAllByRole("link", { name: "Open" })[0]).toHaveAttribute(
       "href",
       "/account/services",
+    );
+    expect(screen.getAllByRole("link", { name: "Open" })[1]).toHaveAttribute(
+      "href",
+      "/account/staff",
     );
     expect(screen.getByText(/user_123/)).toBeVisible();
     expect(screen.getByTestId("user-button")).toBeInTheDocument();

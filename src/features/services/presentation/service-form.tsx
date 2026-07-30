@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useActionState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/management/submit-button";
 import type {
   ActionState,
   ServiceCategoryRow,
   ServiceRow,
 } from "@/features/services/types/service-management.types";
-import { SubmitButton } from "@/features/services/presentation/submit-button";
 
 interface ServiceFormProps {
   readonly action: (
