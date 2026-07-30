@@ -77,3 +77,33 @@ test("protects appointment details from anonymous visitors", async ({
   expect(response.status()).toBe(307);
   expect(response.headers()["location"]).toContain("/sign-in");
 });
+
+test("protects payment management from anonymous visitors", async ({
+  request,
+}) => {
+  const response = await request.get("/account/payments", {
+    maxRedirects: 0,
+  });
+  expect(response.status()).toBe(307);
+  expect(response.headers()["location"]).toContain("/sign-in");
+});
+
+test("protects checkout from anonymous visitors", async ({ request }) => {
+  const response = await request.get(
+    "/account/payments/checkout/8dbfcfda-7011-4ee8-a0d4-caf0a02c3de2",
+    { maxRedirects: 0 },
+  );
+  expect(response.status()).toBe(307);
+  expect(response.headers()["location"]).toContain("/sign-in");
+});
+
+test("protects payment details from anonymous visitors", async ({
+  request,
+}) => {
+  const response = await request.get(
+    "/account/payments/c38d17bb-32a8-4ef3-95ca-d2d16ca9ea77",
+    { maxRedirects: 0 },
+  );
+  expect(response.status()).toBe(307);
+  expect(response.headers()["location"]).toContain("/sign-in");
+});

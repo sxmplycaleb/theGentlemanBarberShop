@@ -20,28 +20,33 @@ describe("AccountPage", () => {
     expect(screen.getByText("Customers")).toBeVisible();
     expect(screen.getByText("Bookings")).toBeVisible();
     expect(screen.getByText("Appointments")).toBeVisible();
+    expect(screen.getByText("Payments")).toBeVisible();
     expect(screen.getByText("Business settings")).toBeVisible();
     expect(screen.getAllByRole("link", { name: "Open" })[0]).toHaveAttribute(
       "href",
-      "/account/appointments",
+      "/account/payments",
     );
     expect(screen.getAllByRole("link", { name: "Open" })[1]).toHaveAttribute(
       "href",
-      "/account/bookings",
+      "/account/appointments",
     );
     expect(screen.getAllByRole("link", { name: "Open" })[2]).toHaveAttribute(
       "href",
-      "/account/services",
+      "/account/bookings",
     );
     expect(screen.getAllByRole("link", { name: "Open" })[3]).toHaveAttribute(
       "href",
-      "/account/staff",
+      "/account/services",
     );
     expect(screen.getAllByRole("link", { name: "Open" })[4]).toHaveAttribute(
       "href",
-      "/account/customers",
+      "/account/staff",
     );
     expect(screen.getAllByRole("link", { name: "Open" })[5]).toHaveAttribute(
+      "href",
+      "/account/customers",
+    );
+    expect(screen.getAllByRole("link", { name: "Open" })[6]).toHaveAttribute(
       "href",
       "/account/settings",
     );

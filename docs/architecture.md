@@ -2,10 +2,10 @@
 
 ## Scope
 
-Milestone 9 adds authenticated Appointment Workflow on top of the
+Milestone 10 adds authenticated Payments & Checkout on top of the
 established foundation, Clerk authentication, Supabase database foundation,
-Services Management, Staff Management, Business Settings, and Customer
-Management and Booking Management architecture.
+Services Management, Staff Management, Business Settings, Customer Management,
+Booking Management, and Appointment Workflow architecture.
 
 ## Runtime
 
@@ -71,6 +71,19 @@ entity, DTO, or speculative abstraction. The canonical booking transition
 matrix remains in the bookings feature because it defines Booking lifecycle
 rules.
 
+The payments feature is the financial layer over Booking. It owns agreed-charge
+and balance presentation, immutable payment/refund records, checkout, receipts,
+strict financial validation, protected Server Actions, repository access, and
+presentation under `src/features/payments/`. Booking remains the scheduling
+entity. No checkout, invoice, appointment, or financial aggregate entity is
+introduced.
+
+Booking owns its server-created agreed charge and currency snapshot.
+Payment-derived totals are calculated from immutable ledger entries and are
+never stored. Payment mutations never update `bookings.status`; Appointment
+Workflow never inserts ledger entries; Booking Management never records
+payments.
+
 Generic management presentation primitives that are shared by feature forms
 live under `src/components/management/`. The `app` directory remains a
 composition layer: account routes protect pages with Clerk, load feature data,
@@ -133,3 +146,11 @@ route is deliberately dependency-free and reports application liveness only.
 - Server Components derive `availableTransitions` from the canonical transition
   matrix and temporal rules. Client Components submit only the transitions
   supplied by the server.
+- Payment history reads are filtered, stably sorted, and paginated in the
+  server-only repository. Checkout reads one booking projection, one calculated
+  totals row, and one bounded ledger page without per-row relationship queries.
+- Payment and refund Server Actions authenticate before parsing input. Database
+  triggers lock the parent booking during insertion and revalidate outstanding
+  or refundable amounts inside the write transaction.
+- Receipt identity values are immutable insertion-time snapshots. Current
+  financial totals are labelled separately from historical receipt data.

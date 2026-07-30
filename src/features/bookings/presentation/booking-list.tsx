@@ -119,6 +119,15 @@ export function BookingList({
                               Workflow
                             </Link>
                           </Button>
+                          {booking.status !== "cancelled" ? (
+                            <Button asChild variant="outline">
+                              <Link
+                                href={`/account/payments/checkout/${booking.id}`}
+                              >
+                                Checkout
+                              </Link>
+                            </Button>
+                          ) : null}
                           <BookingActionForm
                             action={softDeleteBookingAction}
                             id={booking.id}

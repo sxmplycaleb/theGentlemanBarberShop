@@ -28,4 +28,5 @@ export function zodErrorsToActionState(error: ZodError): ActionState {
 export function revalidateBookingManagementPaths() {
   revalidatePath("/account");
   revalidatePath("/account/bookings");
+  revalidatePath("/account/payments");
 }

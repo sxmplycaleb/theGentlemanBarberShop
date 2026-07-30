@@ -77,6 +77,15 @@ export function BookingWorkflowList({
                           Details
                         </Link>
                       </Button>
+                      {booking.status !== "cancelled" ? (
+                        <Button asChild variant="outline">
+                          <Link
+                            href={`/account/payments/checkout/${booking.id}`}
+                          >
+                            Checkout
+                          </Link>
+                        </Button>
+                      ) : null}
                       {booking.availableTransitions.map((target) => (
                         <BookingTransitionForm
                           action={transitionBookingStatusAction}

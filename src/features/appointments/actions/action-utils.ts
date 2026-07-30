@@ -16,4 +16,6 @@ export function revalidateBookingWorkflowPaths(id: string) {
   revalidatePath(`/account/appointments/${id}`);
   revalidatePath("/account/bookings");
   revalidatePath(`/account/bookings/${id}/edit`);
+  revalidatePath("/account/payments");
+  revalidatePath(`/account/payments/checkout/${id}`);
 }

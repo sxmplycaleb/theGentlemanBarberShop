@@ -16,7 +16,7 @@ import type { BookingFormValues } from "@/features/bookings/validation/booking.s
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const bookingColumns =
-  "booking_date,created_at,customer_id,deleted_at,id,service_id,staff_id,start_time,status,updated_at";
+  "booking_date,charge_amount_cents,charge_currency_code,created_at,customer_id,deleted_at,id,service_id,staff_id,start_time,status,updated_at";
 const bookingWithRelationsColumns = `${bookingColumns},customer:customers!bookings_customer_id_fkey(id,full_name,is_active,deleted_at),service:services!bookings_service_id_fkey(id,name,is_active,deleted_at),staff:staff!bookings_staff_id_fkey(id,display_name,is_active,deleted_at)`;
 const slotConflictMessage =
   "That staff member already has a booking at this exact start time.";
@@ -53,6 +53,12 @@ function databaseError(error: {
 
   if (error.code === "23503") {
     return new Error("Choose existing customer, staff, and service records.");
+  }
+
+  if (error.message.includes("booking_has_financial_history")) {
+    return new Error(
+      "Bookings with payment history cannot change service or be deleted.",
+    );
   }
 
   return new Error("Booking data could not be saved.");

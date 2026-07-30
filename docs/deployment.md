@@ -20,6 +20,25 @@ hosting environment or managed Next.js platform.
 - Supabase project URL and anonymous key configured for database access
 - Optional Supabase service-role key configured only as a server-side secret
 
+## Milestone 10 Database Release
+
+Milestone 10 must be released with its single forward migration. Before
+application traffic is enabled:
+
+1. Replay every migration from an empty Supabase database.
+2. Verify booking charge and currency backfill.
+3. Verify payment RLS, grants, immutable triggers, totals view, and concurrent
+   overpayment/over-refund rejection.
+4. Run database lint and advisors.
+5. Regenerate authoritative database types.
+6. Run the complete application quality gates against those generated types.
+
+The migration snapshot trigger keeps existing Booking Management inserts
+compatible during deployment. The release must still be treated as one
+controlled application-and-schema change. The current repository has no usable
+local or linked Supabase environment, so these checks remain mandatory manual
+release tasks rather than silently skipped verification.
+
 ## Continuous Integration
 
 The GitHub Actions workflow runs on pull requests and pushes to `main`. It checks

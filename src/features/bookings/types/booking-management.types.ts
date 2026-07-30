@@ -15,6 +15,8 @@ export type BookingStatus = (typeof BOOKING_STATUSES)[number];
 
 export type BookingRow = {
   readonly booking_date: string;
+  readonly charge_amount_cents: number;
+  readonly charge_currency_code: string;
   readonly created_at: string;
   readonly customer_id: string;
   readonly deleted_at: string | null;
@@ -28,6 +30,8 @@ export type BookingRow = {
 
 type BookingInsert = {
   readonly booking_date: string;
+  readonly charge_amount_cents?: number;
+  readonly charge_currency_code?: string;
   readonly created_at?: string;
   readonly customer_id: string;
   readonly deleted_at?: string | null;

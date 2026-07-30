@@ -34,6 +34,19 @@ Vitest and Testing Library verify:
 - Appointment Workflow protected actions and routes, stable stale-state
   failures, server-derived controls, queue/detail/empty/terminal presentation,
   and account navigation
+- Payment method and entry allow-lists, exact decimal-to-cent validation,
+  currency/date/reference/refund validation, and unknown-field rejection
+- Gross paid, refunded, net paid, outstanding, refundable, and currency display
+  calculations
+- Payment URL filters, search normalization, date ranges, pagination, sorting,
+  and safe defaults
+- Server-only payment history, checkout, totals, detail, immutable receipt
+  snapshots, payment/refund inserts, full checkout, financial-history checks,
+  bounded loads, and stable database-error mapping
+- Clerk-protected payment/refund actions, structured validation errors,
+  cross-feature revalidation, and safe failures
+- Payment dashboard, checkout, partial/full payment, settled/cancelled states,
+  receipt, refund, navigation, and accessible form presentation
 
 Coverage is collected with the V8 provider. The configured minimum is 80 percent
 for statements, branches, functions, and lines across the Milestone 0 foundation
@@ -53,16 +66,19 @@ Playwright runs Chromium in desktop and mobile profiles. It verifies:
 Playwright starts the compiled Next.js production server. Run `npm run build`
 before `npm run test:e2e` when executing the checks individually.
 
-Milestone 9 keeps end-to-end coverage focused on foundation and authentication
+Milestone 10 keeps end-to-end coverage focused on foundation and authentication
 surfaces. Anonymous access to `/account/settings`, `/account/customers`, and
-`/account/bookings`, `/account/appointments`, and an appointment detail route is
-verified as protected. Authenticated booking and lifecycle writes are
+`/account/bookings`, `/account/appointments`, appointment detail,
+`/account/payments`, checkout, and payment detail routes is verified as
+protected. Authenticated booking, lifecycle, and financial writes are
 covered by deterministic repository, validation, presentation, page, and
 Server Action tests rather than authenticated CRUD end-to-end tests.
 
-Milestone 9 introduces no migration. Real-database migration status, schema
-drift, generated type verification, database lint, and advisor checks remain
-pending until the approved Supabase development environment is available.
+Milestone 10 introduces one migration. Real-database replay, booking snapshot
+backfill, immutable-ledger behavior, concurrent overpayment/refund rejection,
+RLS/grants, schema drift, generated type verification, database lint, and
+advisor checks remain pending until the approved Supabase development
+environment is available.
 
 ## Local Commands
 

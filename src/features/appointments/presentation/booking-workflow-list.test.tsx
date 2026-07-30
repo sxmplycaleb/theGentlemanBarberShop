@@ -21,6 +21,8 @@ const filters = {
 const booking = {
   availableTransitions: ["confirmed", "cancelled"] as const,
   booking_date: "2026-08-10",
+  charge_amount_cents: 250000,
+  charge_currency_code: "KES",
   created_at: "2026-08-01T00:00:00Z",
   customer: { deleted_at: null, full_name: "Alex", id, is_active: true },
   customer_id: id,
@@ -65,6 +67,10 @@ describe("BookingWorkflowList", () => {
     expect(screen.getByRole("link", { name: "Details" })).toHaveAttribute(
       "href",
       `/account/appointments/${id}`,
+    );
+    expect(screen.getByRole("link", { name: "Checkout" })).toHaveAttribute(
+      "href",
+      `/account/payments/checkout/${id}`,
     );
   });
 

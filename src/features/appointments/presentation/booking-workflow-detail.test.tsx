@@ -11,6 +11,8 @@ import type { BookingStatus } from "@/features/bookings/types/booking-management
 const booking = {
   availableTransitions: ["confirmed", "cancelled"] as const,
   booking_date: "2026-08-10",
+  charge_amount_cents: 250000,
+  charge_currency_code: "KES",
   created_at: "",
   customer: null,
   customer_id: "",

@@ -29,6 +29,7 @@ export default defineConfig({
         "src/features/bookings/**/*.{ts,tsx}",
         "src/features/customers/**/*.{ts,tsx}",
         "src/features/foundation/**/*.{ts,tsx}",
+        "src/features/payments/**/*.{ts,tsx}",
         "src/lib/**/*.ts",
         "src/types/**/*.ts",
       ],

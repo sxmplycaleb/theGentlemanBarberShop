@@ -1,6 +1,6 @@
 # Security
 
-## Milestone 9 Controls
+## Milestone 10 Controls
 
 - Strict environment parsing prevents malformed configuration from being used.
 - Clerk's strict Content Security Policy integration applies per-request script
@@ -68,6 +68,25 @@
 - Transition failures use stable user-safe messages. A zero-row conditional
   update is treated as stale or no longer valid and never exposes raw Supabase,
   PostgreSQL, or internal response details.
+- Every Payment Management page and Server Action independently calls
+  `auth.protect()` before reading route, query, or form input.
+- Payment reads and inserts use only the server-only service-role repository.
+  No payment key, database client, write primitive, or financial calculation is
+  shipped to the browser.
+- Strict payment schemas reject unknown fields, invalid identifiers,
+  unsupported currencies and methods, future dates, excessive references,
+  floating-point ambiguity, over-precision, unsafe values, zero, and negative
+  amounts.
+- The `payments` table enables RLS, exposes no `anon` or `authenticated`
+  policies, revokes browser-facing grants, grants only service-role select and
+  insert, and rejects update/delete with an immutable-ledger trigger.
+- Payment insertion locks the parent booking and revalidates balances inside the
+  database transaction. Client-supplied amounts and stale checkout pages cannot
+  bypass overpayment or over-refund protection.
+- Receipt snapshots and booking charge snapshots are server-owned. Direct
+  charge snapshot mutation and payment-history destruction are rejected.
+- Repository and action errors map database details to stable user-safe
+  messages.
 - Milestone 3 business schema tables have Row Level Security enabled and no
   permissive public access policies.
 - CI runs linting, strict type checks, tests, and a production build.

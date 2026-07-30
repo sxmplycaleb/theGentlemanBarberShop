@@ -4,6 +4,7 @@ import {
   CalendarDays,
   CalendarCheck,
   Contact,
+  CreditCard,
   Scissors,
   Settings2,
   ShieldCheck,
@@ -48,6 +49,26 @@ export function AccountPage({ userId }: AccountPageProps) {
                   Session user: {userId}
                 </p>
               </div>
+            </div>
+            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
+              <div className="flex items-center gap-4">
+                <span className="border-border grid size-11 shrink-0 place-items-center border">
+                  <CreditCard
+                    aria-hidden="true"
+                    className="size-5"
+                    strokeWidth={1.75}
+                  />
+                </span>
+                <div>
+                  <h2 className="text-lg font-semibold">Payments</h2>
+                  <p className="text-muted-foreground mt-1 text-sm">
+                    Manage checkout, payments, and refunds.
+                  </p>
+                </div>
+              </div>
+              <Button asChild variant="outline">
+                <Link href="/account/payments">Open</Link>
+              </Button>
             </div>
             <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
               <div className="flex items-center gap-4">

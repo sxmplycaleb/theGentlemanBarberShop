@@ -1,10 +1,10 @@
 # Database
 
-## Milestone 9 Scope
+## Milestone 10 Scope
 
-Milestone 9 uses the existing relational booking table and requires no schema
-change or migration. Supabase PostgreSQL is the approved primary database,
-accessed through
+Milestone 10 adds exactly one forward migration for booking charge snapshots
+and an immutable payment ledger. Supabase PostgreSQL is the approved primary
+database, accessed through
 the official
 `@supabase/supabase-js` client from server-side application code.
 
@@ -26,6 +26,10 @@ Services, Staff, Business Settings, Customer Management, and Booking Management
 use feature-owned repositories, validation, presentation, and Server Actions.
 Appointment Workflow uses the same boundary as an operational projection over
 bookings.
+
+Payment Management uses a feature-owned server-only repository. The repository
+accesses `bookings`, `payments`, and the read-only
+`booking_payment_totals` view with the service-role client.
 
 ## Business Settings Singleton
 
@@ -87,6 +91,40 @@ booking ID, expected status, `deleted_at IS NULL`, and any applicable temporal
 predicate. No appointment table, entity, DTO, trigger, index, constraint, or
 RLS policy is added by Milestone 9.
 
+Milestone 10 adds server-owned `charge_amount_cents` and
+`charge_currency_code` snapshots to each booking. Existing bookings are
+backfilled from the selected service and current business currency. A trigger
+sets new snapshots, refreshes them when an unpaid booking changes service, and
+rejects direct snapshot edits, paid-booking service changes, and paid-booking
+soft deletion.
+
+## Payments
+
+`public.payments` is an append-only ledger. Each positive entry is either a
+payment or refund. Refunds reference one original payment, include an
+administrative reason, and cannot exceed the original payment's remaining
+refundable amount.
+
+Receipt-facing business, customer, staff, service, booking-date, start-time,
+and currency values are copied into each entry at insertion. Refunds inherit
+the original payment's snapshots. The payment UUID is the canonical receipt
+identifier.
+
+The ledger has no `updated_at`, `deleted_at`, update path, or delete path.
+Table grants permit only service-role select and insert. RLS is enabled without
+browser-facing policies. An immutable-ledger trigger rejects update and delete
+attempts.
+
+Before insertion, a trigger locks the parent booking row and recalculates
+ledger totals. It rejects payments against deleted, cancelled, zero-charge, or
+fully paid bookings and rejects refunds against invalid or exhausted original
+payments. This serializes concurrent submissions without trusting
+application-side calculations.
+
+`booking_payment_totals` is a security-invoker view that calculates gross paid,
+total refunded, net paid, and outstanding balance. No calculated financial
+total is stored.
+
 ## Core Business Tables
 
 The approved migrations create:
@@ -128,14 +166,19 @@ database types were not regenerated. Migration application, schema-drift
 verification, database lint and advisor checks, and type regeneration remain
 mandatory post-implementation verification steps.
 
-Milestone 9 creates no migration and makes no generated database type change.
-The pending Milestone 8 database-environment verification remains a deployment
-prerequisite before Milestone 9 can be verified against a real database.
+Milestone 10 creates one forward migration and does not edit previous
+migrations. No usable local or linked Supabase environment was available during
+implementation, so the migration was not applied and authoritative database
+types were not regenerated. Payment schema types remain isolated in the
+feature-local temporary approach already established for bookings.
+
+Migration replay, schema-drift verification, database lint/advisors, concurrency
+checks, RLS/grant verification, and authoritative type regeneration remain
+mandatory release prerequisites.
 
 ## Out of Scope
 
-Payments, calendar UI and integrations, availability and duration-overlap
-engines, notifications, email, SMS, loyalty, discounts, reporting, analytics,
-walk-ins, public and recurring booking, customer authentication, RBAC,
-Supabase Auth, Clerk user synchronization, and Supabase Storage are not
-implemented in Milestone 9.
+Online payment gateways, callbacks, webhooks, invoices, taxes, discounts, tips,
+calendar UI and integrations, notifications, email, SMS, loyalty, reporting,
+analytics, customer authentication, RBAC, Supabase Auth, Clerk user
+synchronization, and Supabase Storage are not implemented in Milestone 10.

@@ -27,6 +27,8 @@ const filters: BookingListFilters = {
 const options = { customers: [], services: [], staff: [] };
 const booking = {
   booking_date: "2026-08-10",
+  charge_amount_cents: 250000,
+  charge_currency_code: "KES",
   created_at: "2026-07-30T00:00:00.000Z",
   customer: {
     deleted_at: null,
@@ -75,6 +77,10 @@ describe("BookingList", () => {
     expect(screen.getByRole("link", { name: "Workflow" })).toHaveAttribute(
       "href",
       `/account/appointments/${id}`,
+    );
+    expect(screen.getByRole("link", { name: "Checkout" })).toHaveAttribute(
+      "href",
+      `/account/payments/checkout/${id}`,
     );
     expect(screen.getByText(/1 records/)).toBeVisible();
   });

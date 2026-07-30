@@ -79,3 +79,15 @@ with strict Zod validation through the server-only Supabase repository.
 Appointment Workflow does not define an appointment resource or DTO. Booking is
 the persisted domain entity and the only database record updated by workflow
 operations.
+
+## Payments & Checkout
+
+Milestone 10 adds no public JSON endpoints or Route Handlers. Protected React
+Server Components load payment history, checkout projections, calculated
+balances, and payment details. Three Clerk-protected Server Actions record
+partial payments, complete checkout for the server-derived outstanding balance,
+and append administrative refund entries.
+
+No checkout, invoice, appointment, gateway, callback, or webhook API resource
+is introduced. Payment records are written only through the server-only
+Supabase repository and never update booking lifecycle status.

@@ -67,6 +67,11 @@ export function BookingWorkflowDetail({
             Edit booking
           </Link>
         </Button>
+        <Button asChild variant="outline">
+          <Link href={`/account/payments/checkout/${booking.id}`}>
+            Payments
+          </Link>
+        </Button>
       </div>
     </main>
   );

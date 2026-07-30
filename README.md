@@ -2,12 +2,13 @@
 
 Production business management platform for The Gentleman BarberShop and Spa.
 
-## Milestone 9
+## Milestone 10
 
 This repository currently contains the production project foundation, Clerk
 authentication integration, Supabase database foundation, core business schema
 foundation, Services Management, Staff Management, Business Settings
-Management, Customer Management, Booking Management, and Appointment Workflow:
+Management, Customer Management, Booking Management, Appointment Workflow, and
+Payments & Checkout:
 
 - Next.js App Router with strict TypeScript
 - Tailwind CSS and shadcn/ui configuration
@@ -34,17 +35,23 @@ Management, Customer Management, Booking Management, and Appointment Workflow:
 - Authenticated Appointment Workflow for a business-date queue, search,
   staff/status filtering, pagination, sorting, booking detail, and atomic
   lifecycle transitions
+- Authenticated Payment Management for checkout, full and partial payments,
+  multiple payments, immutable transaction history, outstanding balances,
+  receipt presentation, and administrative refunds
+- Server-owned historical booking charge and currency snapshots
+- Database-serialized payment and refund validation that prevents concurrent
+  overpayment and over-refund
 - ESLint, Prettier, Husky, and lint-staged
 - Vitest unit tests and Playwright end-to-end tests
 - GitHub Actions continuous integration
 
-Appointment Workflow is an operational layer over bookings and introduces no
-appointment table, entity, or API. Payments, calendar UI and integrations,
-availability and duration-overlap
-engines, notifications, email, SMS, loyalty, discounts, reporting, analytics,
-walk-ins, public and recurring booking, customer authentication, RBAC,
-Supabase Auth, Clerk user synchronization, and all other business workflows are
-intentionally outside this milestone.
+Appointment Workflow remains an operational layer over bookings and introduces
+no appointment table, entity, or API. Payments is an internal append-only
+financial layer and never changes booking lifecycle status. Online payment
+processing, payment gateways, callbacks, webhooks, invoices, taxes, discounts,
+tips, calendar integrations, notifications, reporting, analytics, customer
+authentication, RBAC, Supabase Auth, and Clerk user synchronization remain
+outside this milestone.
 
 ## Requirements
 
