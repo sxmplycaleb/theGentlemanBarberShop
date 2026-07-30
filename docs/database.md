@@ -1,8 +1,8 @@
 # Database
 
-## Milestone 7 Scope
+## Milestone 8 Scope
 
-Milestone 7 adds one standalone customer table to the existing core business
+Milestone 8 adds a relational booking table to the existing core business
 schema. Supabase PostgreSQL is the approved primary database, accessed through
 the official
 `@supabase/supabase-js` client from server-side application code.
@@ -21,9 +21,8 @@ Database code is isolated under `src/lib/supabase/`:
 - `database.types.ts` provides the typed database contract for the approved
   schema.
 
-Services, Staff, Business Settings, and Customer Management use feature-owned
-repositories, validation, presentation, and Server Actions. Customer Management
-accesses only `public.customers`.
+Services, Staff, Business Settings, Customer Management, and Booking Management
+use feature-owned repositories, validation, presentation, and Server Actions.
 
 ## Business Settings Singleton
 
@@ -61,6 +60,23 @@ Customer Management:
 - Uses normal partial B-tree indexes for current and deleted customer listing.
 - Uses no search extension, full-text search, or trigram index.
 
+## Bookings
+
+The `bookings` table references one customer, one staff member, and one service.
+It stores the booking date, start time, lifecycle status, audit timestamps, and
+an optional soft-delete timestamp.
+
+Booking status is constrained to `pending`, `confirmed`, `completed`,
+`cancelled`, or `no_show`. Foreign keys use restrictive deletion behavior. A
+partial unique index enforces the approved exact-slot rule for current,
+non-cancelled bookings with the same staff member, date, and start time.
+Additional indexes support schedule ordering and customer, staff, service,
+status, and soft-deletion filters.
+
+Booking records are soft-deleted by setting `deleted_at`. Restoration clears
+`deleted_at` after reference, state, and exact-slot validation. No hard-delete
+path is exposed.
+
 ## Core Business Tables
 
 The approved migrations create:
@@ -72,6 +88,8 @@ The approved migrations create:
 - `business_settings` for singleton business-level settings.
 - `customers` for standalone customer profiles and contact details, added by
   Milestone 7.
+- `bookings` for dated customer appointments linked to staff and services,
+  added by Milestone 8.
 
 The catalog and staff tables include nullable `deleted_at` columns for future
 soft-delete workflows. Staff Management now uses `staff.deleted_at` for soft
@@ -89,14 +107,21 @@ migration creates no application tables. The Milestone 3 migration creates only
 the approved foundational business schema.
 
 Future migrations must be forward-only, reviewable SQL files and must be tied to
-an explicitly approved milestone. Milestone 7 adds exactly one forward-only
-migration that creates only `public.customers`, its constraints and indexes, an
-existing `set_updated_at` trigger attachment, and RLS. Existing schema objects
-and migrations are unchanged.
+an explicitly approved milestone. Milestone 8 adds exactly one forward-only
+migration that creates only `public.bookings`, its constraints, foreign keys,
+indexes, existing `set_updated_at` trigger attachment, grants, and RLS. Existing
+schema objects and migrations are unchanged.
+
+No usable local or linked Supabase development environment was available during
+implementation. The Milestone 8 migration was not applied, and authoritative
+database types were not regenerated. Migration application, schema-drift
+verification, database lint and advisor checks, and type regeneration remain
+mandatory post-implementation verification steps.
 
 ## Out of Scope
 
-Bookings, appointments, calendars, payments, invoices, notifications, email,
-SMS, loyalty, analytics, dashboards, inventory, gallery, uploads, customer
-authentication, RBAC, Supabase Auth, Clerk user synchronization, public APIs,
-mobile features, and Supabase Storage are not implemented in Milestone 7.
+Payments, calendar UI and integrations, availability and duration-overlap
+engines, notifications, email, SMS, loyalty, discounts, reporting, analytics,
+walk-ins, public and recurring booking, customer authentication, RBAC,
+Supabase Auth, Clerk user synchronization, and Supabase Storage are not
+implemented in Milestone 8.

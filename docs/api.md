@@ -56,3 +56,10 @@ occur in protected React Server Components, and create, update, active/inactive,
 soft-delete, and restore mutations use protected Server Actions with Zod
 validation. Customer data is accessed only through the server-only Supabase
 repository.
+
+## Booking Management
+
+Milestone 8 adds no public JSON API endpoints. Authenticated booking reads occur
+in protected React Server Components, and create, update, status, soft-delete,
+and restore mutations use protected Server Actions with Zod validation. Booking
+data is accessed only through the server-only Supabase repository.

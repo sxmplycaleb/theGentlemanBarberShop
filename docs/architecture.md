@@ -2,9 +2,10 @@
 
 ## Scope
 
-Milestone 7 adds authenticated Customer Management on top of the
+Milestone 8 adds authenticated Booking Management on top of the
 established foundation, Clerk authentication, Supabase database foundation,
-Services Management, Staff Management, and Business Settings architecture.
+Services Management, Staff Management, Business Settings, and Customer
+Management architecture.
 
 ## Runtime
 
@@ -54,6 +55,12 @@ App Router pages authenticate with Clerk, load customer data in Server
 Components, and pass serializable customer values or protected Server Actions
 to small Client Component forms.
 
+The bookings feature follows the same feature-owned structure. Its server-only
+repository composes existing customer, staff, and service records into booking
+reads and writes. Protected Server Actions enforce authentication and
+validation, Server Components own page data loading, and Client Components are
+limited to interactive forms and mutation controls.
+
 Generic management presentation primitives that are shared by feature forms
 live under `src/components/management/`. The `app` directory remains a
 composition layer: account routes protect pages with Clerk, load feature data,
@@ -98,3 +105,11 @@ route is deliberately dependency-free and reports application liveness only.
 - Customer mutations use Clerk-protected Server Actions with strict Zod
   validation. Customer Management introduces no public API, Supabase Auth,
   RBAC, customer authentication, or relationship to another business table.
+- Booking Management uses `public.bookings` through server-only Supabase
+  service-role access. Its repository validates references and lifecycle state,
+  and rejects non-cancelled, current bookings with an identical staff member,
+  date, and start time.
+- Booking list state is URL-driven and supports search,
+  customer/staff/service/status/date/deletion filters, stable sorting, and
+  pagination. The exact-slot rule is not an availability or duration-overlap
+  engine.

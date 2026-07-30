@@ -1,6 +1,6 @@
 # Security
 
-## Milestone 7 Controls
+## Milestone 8 Controls
 
 - Strict environment parsing prevents malformed configuration from being used.
 - Clerk's strict Content Security Policy integration applies per-request script
@@ -47,6 +47,16 @@
   restricted to a fixed server-owned allow-list.
 - The customer table has Row Level Security enabled and no permissive public
   policies. Supabase Auth and customer authentication are not introduced.
+- Booking Management routes inherit Clerk proxy protection, and every booking
+  page calls `auth.protect()` before reading route input or booking data.
+- Every Booking Management Server Action independently calls `auth.protect()`
+  before reading or validating `FormData`.
+- Booking data uses only the server-only service-role repository. Strict schemas
+  reject unknown fields, and repository checks validate references, lifecycle
+  state, and the approved exact-slot collision rule.
+- Booking database failures are mapped to stable user-safe messages. The
+  bookings table enables Row Level Security, revokes browser-facing roles, and
+  explicitly grants only the service role.
 - Milestone 3 business schema tables have Row Level Security enabled and no
   permissive public access policies.
 - CI runs linting, strict type checks, tests, and a production build.
