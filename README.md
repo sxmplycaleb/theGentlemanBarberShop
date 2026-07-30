@@ -2,12 +2,12 @@
 
 Production business management platform for The Gentleman BarberShop and Spa.
 
-## Milestone 6
+## Milestone 7
 
 This repository currently contains the production project foundation, Clerk
 authentication integration, Supabase database foundation, core business schema
 foundation, Services Management, Staff Management, and Business Settings
-Management:
+Management, and Customer Management:
 
 - Next.js App Router with strict TypeScript
 - Tailwind CSS and shadcn/ui configuration
@@ -19,20 +19,23 @@ Management:
 - Route protection for authenticated account access
 - Supabase PostgreSQL database configuration
 - Forward-only business schema migrations for service categories, services,
-  staff, and business settings
+  staff, business settings, and customers
 - Row Level Security enabled on business schema tables
 - Authenticated Services Management for service categories and services
 - Authenticated Staff Management for staff listing, search, pagination, sorting,
   create, edit, soft delete, restore, activate/deactivate, and display ordering
 - Authenticated Business Settings Management for viewing and saving the
   singleton business name, timezone, and currency configuration
+- Authenticated Customer Management for customer listing, search, pagination,
+  sorting, create, edit, soft delete, restore, and active/inactive status
 - ESLint, Prettier, Husky, and lint-staged
 - Vitest unit tests and Playwright end-to-end tests
 - GitHub Actions continuous integration
 
-Customer profiles, booking, appointments, payments, notifications, analytics,
-dashboards, gallery, uploads, RBAC, Supabase Auth, Clerk user synchronization,
-SEO implementation, and all other business workflows are intentionally outside
+Bookings, appointments, calendars, payments, invoices, notifications, email,
+SMS, loyalty, analytics, dashboards, inventory, gallery, uploads, customer
+authentication, RBAC, Supabase Auth, Clerk user synchronization, public APIs,
+mobile features, and all other business workflows are intentionally outside
 this milestone.
 
 ## Requirements

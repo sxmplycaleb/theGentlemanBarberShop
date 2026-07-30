@@ -1,6 +1,12 @@
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { Scissors, Settings2, ShieldCheck, UsersRound } from "lucide-react";
+import {
+  Contact,
+  Scissors,
+  Settings2,
+  ShieldCheck,
+  UsersRound,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/constants/app";
@@ -79,6 +85,26 @@ export function AccountPage({ userId }: AccountPageProps) {
               </div>
               <Button asChild variant="outline">
                 <Link href="/account/staff">Open</Link>
+              </Button>
+            </div>
+            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
+              <div className="flex items-center gap-4">
+                <span className="border-border grid size-11 shrink-0 place-items-center border">
+                  <Contact
+                    aria-hidden="true"
+                    className="size-5"
+                    strokeWidth={1.75}
+                  />
+                </span>
+                <div>
+                  <h2 className="text-lg font-semibold">Customers</h2>
+                  <p className="text-muted-foreground mt-1 text-sm">
+                    Manage customer profiles.
+                  </p>
+                </div>
+              </div>
+              <Button asChild variant="outline">
+                <Link href="/account/customers">Open</Link>
               </Button>
             </div>
             <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">

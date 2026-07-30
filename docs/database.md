@@ -1,10 +1,10 @@
 # Database
 
-## Milestone 6 Scope
+## Milestone 7 Scope
 
-Milestone 6 uses the existing core business schema and adds no migration or
-schema change. Supabase PostgreSQL is the approved primary database, accessed
-through the official
+Milestone 7 adds one standalone customer table to the existing core business
+schema. Supabase PostgreSQL is the approved primary database, accessed through
+the official
 `@supabase/supabase-js` client from server-side application code.
 
 Supabase Auth is not used. Clerk remains the sole authentication provider, and
@@ -21,10 +21,9 @@ Database code is isolated under `src/lib/supabase/`:
 - `database.types.ts` provides the typed database contract for the approved
   schema.
 
-Services Management, Staff Management, and Business Settings Management use
-feature-owned repositories, validation, presentation, and Server Actions.
-Business Settings Management accesses only the existing
-`public.business_settings` table.
+Services, Staff, Business Settings, and Customer Management use feature-owned
+repositories, validation, presentation, and Server Actions. Customer Management
+accesses only `public.customers`.
 
 ## Business Settings Singleton
 
@@ -40,15 +39,39 @@ singleton identifier. Milestone 6:
 No seed file is required. The first authenticated save initializes an empty
 singleton.
 
+## Customers
+
+The Milestone 7 migration creates `public.customers` with a server-generated
+UUID, full name, optional phone number, optional lowercase email, optional
+internal notes, active status, soft-delete timestamp, and database-maintained
+timestamps.
+
+Customers are independent records. The table has no foreign keys or
+relationships to services, service categories, staff, business settings,
+bookings, appointments, or authentication identities.
+
+Customer Management:
+
+- Searches full name, phone number, and email using ordinary PostgreSQL
+  `ILIKE`.
+- Applies active and soft-delete filters, allow-listed sorting, exact-count
+  pagination, and stable ordering in the repository.
+- Preserves active status during soft delete and restore.
+- Prevents edits and status changes while a record is soft deleted.
+- Uses normal partial B-tree indexes for current and deleted customer listing.
+- Uses no search extension, full-text search, or trigram index.
+
 ## Core Business Tables
 
-The approved Milestone 3 migration creates:
+The approved migrations create:
 
 - `service_categories` for grouping business services.
 - `services` for service definitions linked to categories.
 - `staff` for business personnel records without roles, permissions, or
   authentication fields.
 - `business_settings` for singleton business-level settings.
+- `customers` for standalone customer profiles and contact details, added by
+  Milestone 7.
 
 The catalog and staff tables include nullable `deleted_at` columns for future
 soft-delete workflows. Staff Management now uses `staff.deleted_at` for soft
@@ -66,12 +89,14 @@ migration creates no application tables. The Milestone 3 migration creates only
 the approved foundational business schema.
 
 Future migrations must be forward-only, reviewable SQL files and must be tied to
-an explicitly approved milestone. Milestone 6 does not add or modify migrations,
-tables, columns, constraints, indexes, RLS policies, or generated database
-types.
+an explicitly approved milestone. Milestone 7 adds exactly one forward-only
+migration that creates only `public.customers`, its constraints and indexes, an
+existing `set_updated_at` trigger attachment, and RLS. Existing schema objects
+and migrations are unchanged.
 
 ## Out of Scope
 
-Customer profiles, booking tables, appointments, payments, dashboard data,
-analytics, notifications, gallery, uploads, RBAC, Supabase Auth, Clerk user
-synchronization, and Supabase Storage are not implemented in Milestone 6.
+Bookings, appointments, calendars, payments, invoices, notifications, email,
+SMS, loyalty, analytics, dashboards, inventory, gallery, uploads, customer
+authentication, RBAC, Supabase Auth, Clerk user synchronization, public APIs,
+mobile features, and Supabase Storage are not implemented in Milestone 7.

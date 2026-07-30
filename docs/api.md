@@ -48,3 +48,11 @@ Milestone 6 adds no public JSON API endpoints. Authenticated Business Settings
 reads occur in a protected React Server Component, and saves use one protected
 Server Action with Zod validation. The action accesses only the existing
 `public.business_settings` singleton through the server-only Supabase client.
+
+## Customer Management
+
+Milestone 7 adds no public JSON API endpoints. Authenticated customer reads
+occur in protected React Server Components, and create, update, active/inactive,
+soft-delete, and restore mutations use protected Server Actions with Zod
+validation. Customer data is accessed only through the server-only Supabase
+repository.

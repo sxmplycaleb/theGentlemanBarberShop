@@ -17,6 +17,7 @@ describe("AccountPage", () => {
     expect(screen.getByText("Signed in")).toBeVisible();
     expect(screen.getByText("Services")).toBeVisible();
     expect(screen.getByText("Staff")).toBeVisible();
+    expect(screen.getByText("Customers")).toBeVisible();
     expect(screen.getByText("Business settings")).toBeVisible();
     expect(screen.getAllByRole("link", { name: "Open" })[0]).toHaveAttribute(
       "href",
@@ -27,6 +28,10 @@ describe("AccountPage", () => {
       "/account/staff",
     );
     expect(screen.getAllByRole("link", { name: "Open" })[2]).toHaveAttribute(
+      "href",
+      "/account/customers",
+    );
+    expect(screen.getAllByRole("link", { name: "Open" })[3]).toHaveAttribute(
       "href",
       "/account/settings",
     );

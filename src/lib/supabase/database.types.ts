@@ -36,6 +36,42 @@ export type Database = {
         };
         readonly Relationships: [];
       };
+      readonly customers: {
+        readonly Row: {
+          readonly created_at: string;
+          readonly deleted_at: string | null;
+          readonly email: string | null;
+          readonly full_name: string;
+          readonly id: string;
+          readonly is_active: boolean;
+          readonly notes: string | null;
+          readonly phone_number: string | null;
+          readonly updated_at: string;
+        };
+        readonly Insert: {
+          readonly created_at?: string;
+          readonly deleted_at?: string | null;
+          readonly email?: string | null;
+          readonly full_name: string;
+          readonly id?: string;
+          readonly is_active?: boolean;
+          readonly notes?: string | null;
+          readonly phone_number?: string | null;
+          readonly updated_at?: string;
+        };
+        readonly Update: {
+          readonly created_at?: string;
+          readonly deleted_at?: string | null;
+          readonly email?: string | null;
+          readonly full_name?: string;
+          readonly id?: string;
+          readonly is_active?: boolean;
+          readonly notes?: string | null;
+          readonly phone_number?: string | null;
+          readonly updated_at?: string;
+        };
+        readonly Relationships: [];
+      };
       readonly service_categories: {
         readonly Row: {
           readonly created_at: string;

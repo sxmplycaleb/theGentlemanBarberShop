@@ -10,6 +10,7 @@ interface ManagementControlsProps {
   readonly pageName: string;
   readonly prefix: string;
   readonly search: string;
+  readonly searchPlaceholder?: string;
   readonly sort: string;
   readonly sortOptions: readonly SelectOption[];
 }
@@ -33,6 +34,7 @@ export function ManagementControls({
   pageName,
   prefix,
   search,
+  searchPlaceholder = "Search by name or slug",
   sort,
   sortOptions,
 }: ManagementControlsProps) {
@@ -47,7 +49,7 @@ export function ManagementControls({
           className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
           defaultValue={search}
           name={fieldName("search")}
-          placeholder="Search by name or slug"
+          placeholder={searchPlaceholder}
           type="search"
         />
       </label>

@@ -2,9 +2,9 @@
 
 ## Scope
 
-Milestone 6 adds authenticated Business Settings Management on top of the
+Milestone 7 adds authenticated Customer Management on top of the
 established foundation, Clerk authentication, Supabase database foundation,
-Services Management, and Staff Management architecture.
+Services Management, Staff Management, and Business Settings architecture.
 
 ## Runtime
 
@@ -48,6 +48,12 @@ access, validation, types, and presentation under
 directly in a Server Component and passes serializable values plus one Server
 Action to a small Client Component form.
 
+The customers feature owns customer actions, data access, URL filter parsing,
+validation, types, and presentation under `src/features/customers/`. Protected
+App Router pages authenticate with Clerk, load customer data in Server
+Components, and pass serializable customer values or protected Server Actions
+to small Client Component forms.
+
 Generic management presentation primitives that are shared by feature forms
 live under `src/components/management/`. The `app` directory remains a
 composition layer: account routes protect pages with Clerk, load feature data,
@@ -85,3 +91,10 @@ route is deliberately dependency-free and reports application liveness only.
 - Business Settings mutations use one protected Server Action. No public API
   route, migration, schema change, Supabase Auth integration, or client-side
   database access is introduced.
+- Customer Management uses the standalone `public.customers` table through
+  server-only Supabase service-role access. Search uses ordinary PostgreSQL
+  `ILIKE`; filtering, sorting, exact-count pagination, and soft-delete state are
+  applied by the feature repository.
+- Customer mutations use Clerk-protected Server Actions with strict Zod
+  validation. Customer Management introduces no public API, Supabase Auth,
+  RBAC, customer authentication, or relationship to another business table.

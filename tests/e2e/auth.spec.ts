@@ -32,3 +32,14 @@ test("protects business settings from anonymous visitors", async ({
   expect(response.status()).toBe(307);
   expect(response.headers()["location"]).toContain("/sign-in");
 });
+
+test("protects customer management from anonymous visitors", async ({
+  request,
+}) => {
+  const response = await request.get("/account/customers", {
+    maxRedirects: 0,
+  });
+
+  expect(response.status()).toBe(307);
+  expect(response.headers()["location"]).toContain("/sign-in");
+});
