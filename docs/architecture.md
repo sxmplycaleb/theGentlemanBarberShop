@@ -2,8 +2,9 @@
 
 ## Scope
 
-Milestone 1 establishes Clerk authentication on top of the deployable
-application foundation. It contains no database-backed business workflows.
+Milestone 5 adds authenticated Staff Management on top of the established
+foundation, Clerk authentication, Supabase database foundation, and Services
+Management architecture.
 
 ## Runtime
 
@@ -31,13 +32,20 @@ own feature-specific code. UI primitives contain no business rules. Shared
 configuration is validated before use, and cross-feature contracts live in
 `types`.
 
-The foundation feature contains only milestone status presentation. Services,
-repositories, database adapters, and business validation layers are not created
-until a requirement needs them.
+The foundation feature contains only milestone status presentation.
 
 The auth feature owns Clerk-backed presentation and authenticated account entry
 points only. Clerk remains the sole authentication provider, and Clerk-managed
 sessions are used without a database adapter or custom user persistence.
+
+The services feature owns service-category and service management actions, data
+access, validation, types, and presentation. The staff feature mirrors that
+boundary for Staff Management under `src/features/staff/`.
+
+Generic management presentation primitives that are shared by Services and
+Staff live under `src/components/management/`. The `app` directory remains a
+composition layer: account staff routes protect the page with Clerk, parse route
+input, load feature data, and render feature presentation.
 
 ## Import Policy
 
@@ -61,3 +69,6 @@ route is deliberately dependency-free and reports application liveness only.
 - Vitest covers deterministic module behavior. Playwright verifies the browser,
   HTTP boundary, responsive layout, and automated accessibility.
 - GitHub Actions executes the same quality commands documented for local use.
+- Staff Management uses the existing `public.staff` table through server-only
+  Supabase service-role access and does not introduce migrations, Supabase Auth,
+  RBAC, uploads, booking, appointments, payments, dashboards, or analytics.

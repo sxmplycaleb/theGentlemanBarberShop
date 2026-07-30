@@ -1,20 +1,14 @@
-import type {
-  ActiveFilter,
-  DeletedFilter,
-  SortDirection,
-} from "@/features/services/types/service-management.types";
-
 type SelectOption = {
   readonly label: string;
   readonly value: string;
 };
 
 interface ManagementControlsProps {
-  readonly active: ActiveFilter;
-  readonly deleted: DeletedFilter;
-  readonly direction: SortDirection;
+  readonly active: string;
+  readonly deleted: string;
+  readonly direction: string;
   readonly pageName: string;
-  readonly prefix: "c" | "s";
+  readonly prefix: string;
   readonly search: string;
   readonly sort: string;
   readonly sortOptions: readonly SelectOption[];
@@ -42,15 +36,17 @@ export function ManagementControls({
   sort,
   sortOptions,
 }: ManagementControlsProps) {
+  const fieldName = (name: string) => (prefix ? `${prefix}_${name}` : name);
+
   return (
     <form className="grid gap-3 md:grid-cols-[minmax(12rem,1fr)_repeat(4,minmax(9rem,auto))]">
-      <input name={`${prefix}_page`} type="hidden" value="1" />
+      <input name={fieldName("page")} type="hidden" value="1" />
       <label className="grid gap-2 text-sm">
         <span className="text-muted-foreground">{pageName} search</span>
         <input
           className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
           defaultValue={search}
-          name={`${prefix}_search`}
+          name={fieldName("search")}
           placeholder="Search by name or slug"
           type="search"
         />
@@ -60,7 +56,7 @@ export function ManagementControls({
         <select
           className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
           defaultValue={active}
-          name={`${prefix}_active`}
+          name={fieldName("active")}
         >
           {activeOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -74,7 +70,7 @@ export function ManagementControls({
         <select
           className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
           defaultValue={deleted}
-          name={`${prefix}_deleted`}
+          name={fieldName("deleted")}
         >
           {deletedOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -88,7 +84,7 @@ export function ManagementControls({
         <select
           className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
           defaultValue={sort}
-          name={`${prefix}_sort`}
+          name={fieldName("sort")}
         >
           {sortOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -102,7 +98,7 @@ export function ManagementControls({
         <select
           className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
           defaultValue={direction}
-          name={`${prefix}_direction`}
+          name={fieldName("direction")}
         >
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>

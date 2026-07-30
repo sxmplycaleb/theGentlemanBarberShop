@@ -14,6 +14,8 @@ Vitest and Testing Library verify:
   business schema
 - Clerk proxy configuration, authenticated account protection, and
   authentication presentation components
+- Services and Staff feature validation, filter parsing, route composition,
+  presentation behavior, and Server Action behavior
 
 Coverage is collected with the V8 provider. The configured minimum is 80 percent
 for statements, branches, functions, and lines across the Milestone 0 foundation
@@ -33,15 +35,16 @@ Playwright runs Chromium in desktop and mobile profiles. It verifies:
 Playwright starts the compiled Next.js production server. Run `npm run build`
 before `npm run test:e2e` when executing the checks individually.
 
-Milestone 3 does not add browser-facing workflows, pages, forms, CRUD endpoints,
-or APIs, so end-to-end coverage remains focused on the existing foundation and
-authentication surfaces.
+Milestone 5 keeps end-to-end coverage focused on foundation and authentication
+surfaces. Staff Management is covered by deterministic unit, validation,
+presentation, and Server Action tests.
 
 ## Local Commands
 
 ```bash
 npm run test
 npm run test:coverage
+npm run build
 npm run test:e2e
 ```
 

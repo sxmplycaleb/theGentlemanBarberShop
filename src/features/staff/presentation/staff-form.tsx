@@ -7,15 +7,15 @@ import { SubmitButton } from "@/components/management/submit-button";
 import { Button } from "@/components/ui/button";
 import type {
   ActionState,
-  ServiceCategoryRow,
-} from "@/features/services/types/service-management.types";
+  StaffRow,
+} from "@/features/staff/types/staff-management.types";
 
-interface ServiceCategoryFormProps {
+interface StaffFormProps {
   readonly action: (
     previousState: ActionState,
     formData: FormData,
   ) => Promise<ActionState>;
-  readonly category?: ServiceCategoryRow;
+  readonly staff?: StaffRow;
   readonly submitLabel: string;
 }
 
@@ -35,11 +35,7 @@ function FieldError({
   return <p className="text-primary text-sm">{errors[0]}</p>;
 }
 
-export function ServiceCategoryForm({
-  action,
-  category,
-  submitLabel,
-}: ServiceCategoryFormProps) {
+export function StaffForm({ action, staff, submitLabel }: StaffFormProps) {
   const [state, formAction] = useActionState(action, initialState);
 
   return (
@@ -54,21 +50,21 @@ export function ServiceCategoryForm({
       ) : null}
 
       <label className="grid gap-2 text-sm">
-        <span className="font-medium">Name</span>
+        <span className="font-medium">Display name</span>
         <input
           className="border-border bg-background min-h-11 rounded-sm border px-3"
-          defaultValue={category?.name}
-          name="name"
+          defaultValue={staff?.display_name}
+          name="display_name"
           required
         />
-        <FieldError errors={state.errors?.name} />
+        <FieldError errors={state.errors?.display_name} />
       </label>
 
       <label className="grid gap-2 text-sm">
         <span className="font-medium">Slug</span>
         <input
           className="border-border bg-background min-h-11 rounded-sm border px-3"
-          defaultValue={category?.slug}
+          defaultValue={staff?.slug}
           name="slug"
           pattern="[a-z0-9]+(-[a-z0-9]+)*"
           required
@@ -77,32 +73,45 @@ export function ServiceCategoryForm({
       </label>
 
       <label className="grid gap-2 text-sm">
-        <span className="font-medium">Description</span>
+        <span className="font-medium">Bio</span>
         <textarea
           className="border-border bg-background min-h-28 rounded-sm border px-3 py-2"
-          defaultValue={category?.description ?? ""}
-          name="description"
+          defaultValue={staff?.bio ?? ""}
+          name="bio"
         />
-        <FieldError errors={state.errors?.description} />
+        <FieldError errors={state.errors?.bio} />
       </label>
 
-      <label className="grid gap-2 text-sm">
-        <span className="font-medium">Display order</span>
-        <input
-          className="border-border bg-background min-h-11 rounded-sm border px-3"
-          defaultValue={category?.display_order ?? 0}
-          min={0}
-          name="display_order"
-          required
-          type="number"
-        />
-        <FieldError errors={state.errors?.display_order} />
-      </label>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <label className="grid gap-2 text-sm">
+          <span className="font-medium">Phone number</span>
+          <input
+            className="border-border bg-background min-h-11 rounded-sm border px-3"
+            defaultValue={staff?.phone_number ?? ""}
+            name="phone_number"
+            type="tel"
+          />
+          <FieldError errors={state.errors?.phone_number} />
+        </label>
+
+        <label className="grid gap-2 text-sm">
+          <span className="font-medium">Display order</span>
+          <input
+            className="border-border bg-background min-h-11 rounded-sm border px-3"
+            defaultValue={staff?.display_order ?? 0}
+            min={0}
+            name="display_order"
+            required
+            type="number"
+          />
+          <FieldError errors={state.errors?.display_order} />
+        </label>
+      </div>
 
       <label className="flex items-center gap-3 text-sm">
         <input
           className="size-4"
-          defaultChecked={category?.is_active ?? true}
+          defaultChecked={staff?.is_active ?? true}
           name="is_active"
           type="checkbox"
         />
@@ -112,7 +121,7 @@ export function ServiceCategoryForm({
       <div className="flex flex-col gap-3 sm:flex-row">
         <SubmitButton>{submitLabel}</SubmitButton>
         <Button asChild variant="outline">
-          <Link href="/account/services">Back to services</Link>
+          <Link href="/account/staff">Back to staff</Link>
         </Button>
       </div>
     </form>
