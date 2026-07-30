@@ -16,6 +16,9 @@ Vitest and Testing Library verify:
   authentication presentation components
 - Services and Staff feature validation, filter parsing, route composition,
   presentation behavior, and Server Action behavior
+- Business Settings validation, singleton repository read/upsert behavior,
+  protected Server Action behavior, route composition, approved select options,
+  accessible form feedback, and presentation
 
 Coverage is collected with the V8 provider. The configured minimum is 80 percent
 for statements, branches, functions, and lines across the Milestone 0 foundation
@@ -35,9 +38,11 @@ Playwright runs Chromium in desktop and mobile profiles. It verifies:
 Playwright starts the compiled Next.js production server. Run `npm run build`
 before `npm run test:e2e` when executing the checks individually.
 
-Milestone 5 keeps end-to-end coverage focused on foundation and authentication
-surfaces. Staff Management is covered by deterministic unit, validation,
-presentation, and Server Action tests.
+Milestone 6 keeps end-to-end coverage focused on foundation and authentication
+surfaces. Anonymous access to `/account/settings` is verified as protected.
+Authenticated Business Settings writes are covered by deterministic repository,
+validation, presentation, page, and Server Action tests rather than
+authenticated CRUD end-to-end tests.
 
 ## Local Commands
 

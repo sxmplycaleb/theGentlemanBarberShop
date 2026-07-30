@@ -2,9 +2,9 @@
 
 ## Scope
 
-Milestone 5 adds authenticated Staff Management on top of the established
-foundation, Clerk authentication, Supabase database foundation, and Services
-Management architecture.
+Milestone 6 adds authenticated Business Settings Management on top of the
+established foundation, Clerk authentication, Supabase database foundation,
+Services Management, and Staff Management architecture.
 
 ## Runtime
 
@@ -42,10 +42,16 @@ The services feature owns service-category and service management actions, data
 access, validation, types, and presentation. The staff feature mirrors that
 boundary for Staff Management under `src/features/staff/`.
 
-Generic management presentation primitives that are shared by Services and
-Staff live under `src/components/management/`. The `app` directory remains a
-composition layer: account staff routes protect the page with Clerk, parse route
-input, load feature data, and render feature presentation.
+The business-settings feature owns singleton settings actions, constants, data
+access, validation, types, and presentation under
+`src/features/business-settings/`. Its protected App Router page reads settings
+directly in a Server Component and passes serializable values plus one Server
+Action to a small Client Component form.
+
+Generic management presentation primitives that are shared by feature forms
+live under `src/components/management/`. The `app` directory remains a
+composition layer: account routes protect pages with Clerk, load feature data,
+and render feature presentation.
 
 ## Import Policy
 
@@ -72,3 +78,10 @@ route is deliberately dependency-free and reports application liveness only.
 - Staff Management uses the existing `public.staff` table through server-only
   Supabase service-role access and does not introduce migrations, Supabase Auth,
   RBAC, uploads, booking, appointments, payments, dashboards, or analytics.
+- Business Settings Management uses only the existing
+  `public.business_settings` singleton through server-only Supabase service-role
+  access. Reads select `id = true`, while saves atomically upsert the
+  server-owned `id = true` primary key.
+- Business Settings mutations use one protected Server Action. No public API
+  route, migration, schema change, Supabase Auth integration, or client-side
+  database access is introduced.

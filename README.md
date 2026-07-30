@@ -2,11 +2,12 @@
 
 Production business management platform for The Gentleman BarberShop and Spa.
 
-## Milestone 5
+## Milestone 6
 
 This repository currently contains the production project foundation, Clerk
 authentication integration, Supabase database foundation, core business schema
-foundation, Services Management, and Staff Management:
+foundation, Services Management, Staff Management, and Business Settings
+Management:
 
 - Next.js App Router with strict TypeScript
 - Tailwind CSS and shadcn/ui configuration
@@ -23,6 +24,8 @@ foundation, Services Management, and Staff Management:
 - Authenticated Services Management for service categories and services
 - Authenticated Staff Management for staff listing, search, pagination, sorting,
   create, edit, soft delete, restore, activate/deactivate, and display ordering
+- Authenticated Business Settings Management for viewing and saving the
+  singleton business name, timezone, and currency configuration
 - ESLint, Prettier, Husky, and lint-staged
 - Vitest unit tests and Playwright end-to-end tests
 - GitHub Actions continuous integration
