@@ -1,9 +1,10 @@
 # Database
 
-## Milestone 5 Scope
+## Milestone 6 Scope
 
-Milestone 5 uses the existing core business schema. Supabase PostgreSQL is the
-approved primary database, accessed through the official
+Milestone 6 uses the existing core business schema and adds no migration or
+schema change. Supabase PostgreSQL is the approved primary database, accessed
+through the official
 `@supabase/supabase-js` client from server-side application code.
 
 Supabase Auth is not used. Clerk remains the sole authentication provider, and
@@ -20,9 +21,24 @@ Database code is isolated under `src/lib/supabase/`:
 - `database.types.ts` provides the typed database contract for the approved
   schema.
 
-Services Management and Staff Management use feature-owned repositories,
-validation, presentation, and Server Actions. Staff Management uses only the
-existing `public.staff` table.
+Services Management, Staff Management, and Business Settings Management use
+feature-owned repositories, validation, presentation, and Server Actions.
+Business Settings Management accesses only the existing
+`public.business_settings` table.
+
+## Business Settings Singleton
+
+The `business_settings` table uses its constrained boolean primary key as a
+singleton identifier. Milestone 6:
+
+- Selects the row where `id = true`.
+- Atomically upserts `id = true` with `business_name`, `timezone`, and
+  `currency_code` when settings are saved.
+- Does not expose or accept `id`, `created_at`, or `updated_at` in the form.
+- Leaves `updated_at` maintenance to the existing database trigger.
+
+No seed file is required. The first authenticated save initializes an empty
+singleton.
 
 ## Core Business Tables
 
@@ -50,7 +66,7 @@ migration creates no application tables. The Milestone 3 migration creates only
 the approved foundational business schema.
 
 Future migrations must be forward-only, reviewable SQL files and must be tied to
-an explicitly approved milestone. Milestone 5 did not add or modify migrations,
+an explicitly approved milestone. Milestone 6 does not add or modify migrations,
 tables, columns, constraints, indexes, RLS policies, or generated database
 types.
 
@@ -58,4 +74,4 @@ types.
 
 Customer profiles, booking tables, appointments, payments, dashboard data,
 analytics, notifications, gallery, uploads, RBAC, Supabase Auth, Clerk user
-synchronization, and Supabase Storage are not implemented in Milestone 5.
+synchronization, and Supabase Storage are not implemented in Milestone 6.

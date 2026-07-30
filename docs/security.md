@@ -1,6 +1,6 @@
 # Security
 
-## Milestone 5 Controls
+## Milestone 6 Controls
 
 - Strict environment parsing prevents malformed configuration from being used.
 - Clerk's strict Content Security Policy integration applies per-request script
@@ -25,6 +25,16 @@
   never be exposed through `NEXT_PUBLIC_` variables.
 - Staff Management uses server-only Supabase service-role access through the
   existing database client and does not expose public CRUD routes.
+- The Business Settings page inherits Clerk proxy protection and calls
+  `auth.protect()` before loading the singleton.
+- The Business Settings Server Action calls `auth.protect()` before reading or
+  validating `FormData`.
+- Business Settings uses the server-only service-role client and accesses only
+  `public.business_settings`; no client-side database write is available.
+- The singleton identifier is owned by the repository and is never accepted
+  from the client.
+- Business Settings validation errors are structured while database details are
+  replaced with stable user-safe messages.
 - Milestone 3 business schema tables have Row Level Security enabled and no
   permissive public access policies.
 - CI runs linting, strict type checks, tests, and a production build.
