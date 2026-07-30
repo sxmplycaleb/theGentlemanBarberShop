@@ -24,6 +24,7 @@ export default defineConfig({
         "src/config/**/*.ts",
         "src/constants/**/*.ts",
         "src/features/auth/**/*.{ts,tsx}",
+        "src/features/appointments/**/*.{ts,tsx}",
         "src/features/business-settings/**/*.{ts,tsx}",
         "src/features/bookings/**/*.{ts,tsx}",
         "src/features/customers/**/*.{ts,tsx}",

@@ -12,7 +12,6 @@ import {
 import {
   createBooking,
   restoreBooking,
-  setBookingStatus,
   softDeleteBooking,
   updateBooking,
 } from "@/features/bookings/data/booking.repository";
@@ -20,7 +19,6 @@ import type { ActionState } from "@/features/bookings/types/booking-management.t
 import {
   bookingFormSchema,
   bookingIdSchema,
-  bookingStatusActionSchema,
 } from "@/features/bookings/validation/booking.schema";
 
 function safeFailure(error: unknown, fallback: string) {
@@ -76,28 +74,6 @@ export async function updateBookingAction(
       error,
       "Booking could not be updated. Please try again.",
     );
-  }
-}
-
-export async function setBookingStatusAction(
-  _previousState: ActionState,
-  formData: FormData,
-): Promise<ActionState> {
-  await auth.protect();
-  const parsed = bookingStatusActionSchema.safeParse(
-    formDataToObject(formData),
-  );
-
-  if (!parsed.success) {
-    return actionFailure("Invalid booking status.");
-  }
-
-  try {
-    await setBookingStatus(parsed.data.id, parsed.data.status);
-    revalidateBookingManagementPaths();
-    return actionSuccess("Booking status updated.");
-  } catch (error) {
-    return safeFailure(error, "Booking status could not be updated.");
   }
 }
 

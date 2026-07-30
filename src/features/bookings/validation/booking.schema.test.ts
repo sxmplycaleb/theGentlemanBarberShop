@@ -3,7 +3,6 @@ import { describe, expect, it } from "vitest";
 import {
   bookingFormSchema,
   bookingIdSchema,
-  bookingStatusActionSchema,
 } from "@/features/bookings/validation/booking.schema";
 
 const ids = {
@@ -19,13 +18,11 @@ describe("booking validation", () => {
         ...ids,
         booking_date: " 2026-08-10 ",
         start_time: " 09:30 ",
-        status: "confirmed",
       }),
     ).toEqual({
       ...ids,
       booking_date: "2026-08-10",
       start_time: "09:30",
-      status: "confirmed",
     });
   });
 
@@ -33,7 +30,6 @@ describe("booking validation", () => {
     ["date format", { booking_date: "10/08/2026" }],
     ["calendar date", { booking_date: "2026-02-30" }],
     ["time", { start_time: "25:00" }],
-    ["status", { status: "scheduled" }],
     ["customer", { customer_id: "invalid" }],
   ])("rejects invalid %s", (_name, override) => {
     expect(
@@ -41,7 +37,6 @@ describe("booking validation", () => {
         ...ids,
         booking_date: "2026-08-10",
         start_time: "09:30",
-        status: "pending",
         ...override,
       }).success,
     ).toBe(false);
@@ -54,27 +49,13 @@ describe("booking validation", () => {
         booking_date: "2026-08-10",
         role: "admin",
         start_time: "09:30",
-        status: "pending",
       }).success,
     ).toBe(false);
   });
 
-  it("validates identifiers and status actions strictly", () => {
+  it("validates identifiers strictly", () => {
     expect(bookingIdSchema.safeParse({ id: ids.customer_id }).success).toBe(
       true,
     );
-    expect(
-      bookingStatusActionSchema.safeParse({
-        id: ids.customer_id,
-        status: "no_show",
-      }).success,
-    ).toBe(true);
-    expect(
-      bookingStatusActionSchema.safeParse({
-        extra: true,
-        id: ids.customer_id,
-        status: "pending",
-      }).success,
-    ).toBe(false);
   });
 });

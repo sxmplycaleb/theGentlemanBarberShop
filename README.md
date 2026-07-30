@@ -2,12 +2,12 @@
 
 Production business management platform for The Gentleman BarberShop and Spa.
 
-## Milestone 8
+## Milestone 9
 
 This repository currently contains the production project foundation, Clerk
 authentication integration, Supabase database foundation, core business schema
 foundation, Services Management, Staff Management, Business Settings
-Management, Customer Management, and Booking Management:
+Management, Customer Management, Booking Management, and Appointment Workflow:
 
 - Next.js App Router with strict TypeScript
 - Tailwind CSS and shadcn/ui configuration
@@ -29,13 +29,18 @@ Management, Customer Management, and Booking Management:
 - Authenticated Customer Management for customer listing, search, pagination,
   sorting, create, edit, soft delete, restore, and active/inactive status
 - Authenticated Booking Management for booking listing, search, filtering,
-  pagination, sorting, create, edit, status changes, soft delete, restore,
+  pagination, sorting, create, edit, soft delete, restore,
   related-record selection, and exact-slot collision validation
+- Authenticated Appointment Workflow for a business-date queue, search,
+  staff/status filtering, pagination, sorting, booking detail, and atomic
+  lifecycle transitions
 - ESLint, Prettier, Husky, and lint-staged
 - Vitest unit tests and Playwright end-to-end tests
 - GitHub Actions continuous integration
 
-Payments, calendar UI and integrations, availability and duration-overlap
+Appointment Workflow is an operational layer over bookings and introduces no
+appointment table, entity, or API. Payments, calendar UI and integrations,
+availability and duration-overlap
 engines, notifications, email, SMS, loyalty, discounts, reporting, analytics,
 walk-ins, public and recurring booking, customer authentication, RBAC,
 Supabase Auth, Clerk user synchronization, and all other business workflows are

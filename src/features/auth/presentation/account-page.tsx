@@ -2,6 +2,7 @@ import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import {
   CalendarDays,
+  CalendarCheck,
   Contact,
   Scissors,
   Settings2,
@@ -47,6 +48,26 @@ export function AccountPage({ userId }: AccountPageProps) {
                   Session user: {userId}
                 </p>
               </div>
+            </div>
+            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
+              <div className="flex items-center gap-4">
+                <span className="border-border grid size-11 shrink-0 place-items-center border">
+                  <CalendarCheck
+                    aria-hidden="true"
+                    className="size-5"
+                    strokeWidth={1.75}
+                  />
+                </span>
+                <div>
+                  <h2 className="text-lg font-semibold">Appointments</h2>
+                  <p className="text-muted-foreground mt-1 text-sm">
+                    Manage the daily booking workflow.
+                  </p>
+                </div>
+              </div>
+              <Button asChild variant="outline">
+                <Link href="/account/appointments">Open</Link>
+              </Button>
             </div>
             <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
               <div className="flex items-center gap-4">

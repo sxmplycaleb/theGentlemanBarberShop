@@ -45,7 +45,6 @@ export default async function Page({ params }: PageProps) {
           service_id: booking.service_id,
           staff_id: booking.staff_id,
           start_time: booking.start_time,
-          status: booking.status,
         }}
         options={options}
         submitLabel="Update booking"
