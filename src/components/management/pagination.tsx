@@ -32,18 +32,16 @@ export function Pagination({
   return (
     <nav
       aria-label={`${pageParam} pagination`}
-      className="flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between"
+      className="border-border bg-card flex flex-col gap-3 rounded-lg border px-4 py-3 text-sm shadow-xs sm:flex-row sm:items-center sm:justify-between"
     >
       <p className="text-muted-foreground">
         Page {pagination.page} of {pagination.pageCount} &middot;{" "}
         {pagination.total} records
       </p>
-      <div className="flex gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <Button
           asChild
-          className={
-            pagination.page <= 1 ? "pointer-events-none opacity-50" : ""
-          }
+          className={pagination.page <= 1 ? "pointer-events-none" : ""}
           variant="outline"
         >
           <Link
@@ -56,9 +54,7 @@ export function Pagination({
         <Button
           asChild
           className={
-            pagination.page >= pagination.pageCount
-              ? "pointer-events-none opacity-50"
-              : ""
+            pagination.page >= pagination.pageCount ? "pointer-events-none" : ""
           }
           variant="outline"
         >

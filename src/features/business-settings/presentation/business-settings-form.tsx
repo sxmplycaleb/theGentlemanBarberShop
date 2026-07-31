@@ -37,7 +37,7 @@ function FieldError({
   }
 
   return (
-    <p className="text-primary text-sm" id={id}>
+    <p className="text-danger text-sm font-medium" id={id}>
       {errors[0]}
     </p>
   );

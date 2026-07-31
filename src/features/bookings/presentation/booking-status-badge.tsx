@@ -1,4 +1,5 @@
 import type { BookingStatus } from "@/features/bookings/types/booking-management.types";
+import { Badge } from "@/components/ui/badge";
 
 const labels: Record<BookingStatus, string> = {
   cancelled: "Cancelled",
@@ -6,6 +7,17 @@ const labels: Record<BookingStatus, string> = {
   confirmed: "Confirmed",
   no_show: "No show",
   pending: "Pending",
+};
+
+const variants: Record<
+  BookingStatus,
+  "danger" | "info" | "neutral" | "success" | "warning"
+> = {
+  cancelled: "danger",
+  completed: "success",
+  confirmed: "info",
+  no_show: "warning",
+  pending: "neutral",
 };
 
 interface BookingStatusBadgeProps {
@@ -19,14 +31,8 @@ export function BookingStatusBadge({
 }: BookingStatusBadgeProps) {
   return (
     <div className="flex flex-wrap gap-2">
-      <span className="border-border inline-flex min-h-7 items-center rounded-sm border px-2 text-xs">
-        {labels[status]}
-      </span>
-      {deletedAt ? (
-        <span className="border-border text-muted-foreground inline-flex min-h-7 items-center rounded-sm border px-2 text-xs">
-          Deleted
-        </span>
-      ) : null}
+      <Badge variant={variants[status]}>{labels[status]}</Badge>
+      {deletedAt ? <Badge variant="outline">Deleted</Badge> : null}
     </div>
   );
 }

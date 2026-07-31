@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { ResponsiveTable } from "@/components/ui/responsive-table";
 import { ManagementControls } from "@/components/management/management-controls";
 import { Pagination } from "@/components/management/pagination";
 import { StatusBadge } from "@/components/management/status-badge";
@@ -85,8 +86,8 @@ export function ServiceList({
         sortOptions={serviceSortOptions}
       />
 
-      <div className="border-border overflow-x-auto border">
-        <table className="w-full min-w-[64rem] border-collapse text-left text-sm">
+      <ResponsiveTable label="Services">
+        <table className="data-table min-w-[64rem] text-left text-sm">
           <thead className="bg-muted text-muted-foreground">
             <tr>
               <th className="px-4 py-3 font-medium">Name</th>
@@ -195,7 +196,7 @@ export function ServiceList({
             )}
           </tbody>
         </table>
-      </div>
+      </ResponsiveTable>
 
       <Pagination
         pageParam="s_page"

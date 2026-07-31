@@ -41,12 +41,12 @@ export function ManagementControls({
   const fieldName = (name: string) => (prefix ? `${prefix}_${name}` : name);
 
   return (
-    <form className="grid gap-3 md:grid-cols-[minmax(12rem,1fr)_repeat(4,minmax(9rem,auto))]">
+    <form className="border-border bg-card grid gap-4 rounded-lg border p-4 shadow-sm md:grid-cols-2 xl:grid-cols-[minmax(14rem,1fr)_repeat(4,minmax(9rem,auto))]">
       <input name={fieldName("page")} type="hidden" value="1" />
       <label className="grid gap-2 text-sm">
         <span className="text-muted-foreground">{pageName} search</span>
         <input
-          className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
+          className="min-h-11 px-3 text-sm"
           defaultValue={search}
           name={fieldName("search")}
           placeholder={searchPlaceholder}
@@ -56,7 +56,7 @@ export function ManagementControls({
       <label className="grid gap-2 text-sm">
         <span className="text-muted-foreground">Status</span>
         <select
-          className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
+          className="min-h-11 px-3 text-sm"
           defaultValue={active}
           name={fieldName("active")}
         >
@@ -70,7 +70,7 @@ export function ManagementControls({
       <label className="grid gap-2 text-sm">
         <span className="text-muted-foreground">Records</span>
         <select
-          className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
+          className="min-h-11 px-3 text-sm"
           defaultValue={deleted}
           name={fieldName("deleted")}
         >
@@ -84,7 +84,7 @@ export function ManagementControls({
       <label className="grid gap-2 text-sm">
         <span className="text-muted-foreground">Sort</span>
         <select
-          className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
+          className="min-h-11 px-3 text-sm"
           defaultValue={sort}
           name={fieldName("sort")}
         >
@@ -98,7 +98,7 @@ export function ManagementControls({
       <label className="grid gap-2 text-sm">
         <span className="text-muted-foreground">Direction</span>
         <select
-          className="border-border bg-background min-h-11 rounded-sm border px-3 text-sm"
+          className="min-h-11 px-3 text-sm"
           defaultValue={direction}
           name={fieldName("direction")}
         >
@@ -107,7 +107,7 @@ export function ManagementControls({
         </select>
       </label>
       <button
-        className="bg-primary text-primary-foreground min-h-11 rounded-sm px-4 text-sm font-medium md:col-start-5"
+        className="bg-primary text-primary-foreground hover:bg-primary/90 min-h-11 rounded-sm px-4 text-sm font-semibold shadow-xs xl:col-start-5"
         type="submit"
       >
         Apply

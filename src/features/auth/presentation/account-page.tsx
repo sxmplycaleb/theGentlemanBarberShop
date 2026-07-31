@@ -1,8 +1,6 @@
-import { UserButton } from "@clerk/nextjs";
-import Link from "next/link";
 import {
-  CalendarDays,
   CalendarCheck,
+  CalendarDays,
   Contact,
   CreditCard,
   Scissors,
@@ -10,189 +8,173 @@ import {
   ShieldCheck,
   UsersRound,
 } from "lucide-react";
+import Link from "next/link";
 
+import { AuthenticatedPageShell } from "@/components/layout/authenticated-page-shell";
+import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { APP_NAME } from "@/constants/app";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { MetricCard } from "@/components/ui/metric-card";
 
 interface AccountPageProps {
   readonly userId: string;
 }
 
+const modules = [
+  {
+    description: "Manage checkout, payment history, receipts, and refunds.",
+    href: "/account/payments",
+    icon: CreditCard,
+    label: "Payments",
+  },
+  {
+    description: "Run the daily queue and permitted lifecycle transitions.",
+    href: "/account/appointments",
+    icon: CalendarCheck,
+    label: "Appointments",
+  },
+  {
+    description: "Create, schedule, update, and restore customer bookings.",
+    href: "/account/bookings",
+    icon: CalendarDays,
+    label: "Bookings",
+  },
+  {
+    description: "Organize categories, services, duration, and pricing.",
+    href: "/account/services",
+    icon: Scissors,
+    label: "Services",
+  },
+  {
+    description: "Maintain team member profiles and availability status.",
+    href: "/account/staff",
+    icon: UsersRound,
+    label: "Staff",
+  },
+  {
+    description: "Keep customer profiles and contact details up to date.",
+    href: "/account/customers",
+    icon: Contact,
+    label: "Customers",
+  },
+  {
+    description: "Configure the business name, timezone, and currency.",
+    href: "/account/settings",
+    icon: Settings2,
+    label: "Business settings",
+  },
+] as const;
+
 export function AccountPage({ userId }: AccountPageProps) {
   return (
-    <main className="bg-background text-foreground min-h-dvh">
-      <div className="mx-auto flex min-h-dvh w-full max-w-4xl flex-col px-6 py-8 sm:px-10 lg:px-12">
-        <header className="border-border flex items-center justify-between border-b pb-6">
-          <div>
-            <p className="text-muted-foreground text-sm">{APP_NAME}</p>
-            <h1 className="mt-2 font-serif text-4xl font-semibold">Account</h1>
-          </div>
-          <UserButton />
-        </header>
+    <AuthenticatedPageShell
+      actions={
+        <Button asChild>
+          <Link href="/account/bookings/new">Create booking</Link>
+        </Button>
+      }
+      description="A focused operational home for bookings, appointments, customers, and payments."
+      title="Dashboard"
+    >
+      <Alert title="Signed in" variant="success">
+        Clerk is managing the active session for this browser.
+        <span className="sr-only"> Session user: {userId}</span>
+      </Alert>
 
-        <section className="grid flex-1 place-items-center py-16">
-          <div className="grid w-full max-w-xl gap-4">
-            <div className="border-border bg-card flex items-start gap-4 border p-6">
-              <span className="border-border grid size-11 shrink-0 place-items-center border">
-                <ShieldCheck
-                  aria-hidden="true"
-                  className="size-5"
-                  strokeWidth={1.75}
-                />
-              </span>
-              <div>
-                <h2 className="text-lg font-semibold">Signed in</h2>
-                <p className="text-muted-foreground mt-2 text-sm leading-6">
-                  Clerk is managing the active session for this browser.
-                </p>
-                <p className="text-muted-foreground mt-4 text-xs break-all">
-                  Session user: {userId}
-                </p>
-              </div>
-            </div>
-            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
-              <div className="flex items-center gap-4">
-                <span className="border-border grid size-11 shrink-0 place-items-center border">
-                  <CreditCard
-                    aria-hidden="true"
-                    className="size-5"
-                    strokeWidth={1.75}
-                  />
-                </span>
-                <div>
-                  <h2 className="text-lg font-semibold">Payments</h2>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    Manage checkout, payments, and refunds.
-                  </p>
-                </div>
-              </div>
-              <Button asChild variant="outline">
-                <Link href="/account/payments">Open</Link>
-              </Button>
-            </div>
-            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
-              <div className="flex items-center gap-4">
-                <span className="border-border grid size-11 shrink-0 place-items-center border">
-                  <CalendarCheck
-                    aria-hidden="true"
-                    className="size-5"
-                    strokeWidth={1.75}
-                  />
-                </span>
-                <div>
-                  <h2 className="text-lg font-semibold">Appointments</h2>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    Manage the daily booking workflow.
-                  </p>
-                </div>
-              </div>
-              <Button asChild variant="outline">
-                <Link href="/account/appointments">Open</Link>
-              </Button>
-            </div>
-            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
-              <div className="flex items-center gap-4">
-                <span className="border-border grid size-11 shrink-0 place-items-center border">
-                  <CalendarDays
-                    aria-hidden="true"
-                    className="size-5"
-                    strokeWidth={1.75}
-                  />
-                </span>
-                <div>
-                  <h2 className="text-lg font-semibold">Bookings</h2>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    Manage customer bookings.
-                  </p>
-                </div>
-              </div>
-              <Button asChild variant="outline">
-                <Link href="/account/bookings">Open</Link>
-              </Button>
-            </div>
-            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
-              <div className="flex items-center gap-4">
-                <span className="border-border grid size-11 shrink-0 place-items-center border">
-                  <Scissors
-                    aria-hidden="true"
-                    className="size-5"
-                    strokeWidth={1.75}
-                  />
-                </span>
-                <div>
-                  <h2 className="text-lg font-semibold">Services</h2>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    Manage categories and services.
-                  </p>
-                </div>
-              </div>
-              <Button asChild variant="outline">
-                <Link href="/account/services">Open</Link>
-              </Button>
-            </div>
-            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
-              <div className="flex items-center gap-4">
-                <span className="border-border grid size-11 shrink-0 place-items-center border">
-                  <UsersRound
-                    aria-hidden="true"
-                    className="size-5"
-                    strokeWidth={1.75}
-                  />
-                </span>
-                <div>
-                  <h2 className="text-lg font-semibold">Staff</h2>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    Manage team member profiles.
-                  </p>
-                </div>
-              </div>
-              <Button asChild variant="outline">
-                <Link href="/account/staff">Open</Link>
-              </Button>
-            </div>
-            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
-              <div className="flex items-center gap-4">
-                <span className="border-border grid size-11 shrink-0 place-items-center border">
-                  <Contact
-                    aria-hidden="true"
-                    className="size-5"
-                    strokeWidth={1.75}
-                  />
-                </span>
-                <div>
-                  <h2 className="text-lg font-semibold">Customers</h2>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    Manage customer profiles.
-                  </p>
-                </div>
-              </div>
-              <Button asChild variant="outline">
-                <Link href="/account/customers">Open</Link>
-              </Button>
-            </div>
-            <div className="border-border bg-card flex items-center justify-between gap-4 border p-6">
-              <div className="flex items-center gap-4">
-                <span className="border-border grid size-11 shrink-0 place-items-center border">
-                  <Settings2
-                    aria-hidden="true"
-                    className="size-5"
-                    strokeWidth={1.75}
-                  />
-                </span>
-                <div>
-                  <h2 className="text-lg font-semibold">Business settings</h2>
-                  <p className="text-muted-foreground mt-1 text-sm">
-                    Manage business details and defaults.
-                  </p>
-                </div>
-              </div>
-              <Button asChild variant="outline">
-                <Link href="/account/settings">Open</Link>
-              </Button>
-            </div>
+      <section aria-labelledby="quick-actions-heading">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2
+              className="font-serif text-2xl font-semibold"
+              id="quick-actions-heading"
+            >
+              Quick actions
+            </h2>
+            <p className="text-muted-foreground mt-2 text-sm">
+              Jump straight into the most common daily tasks.
+            </p>
           </div>
-        </section>
-      </div>
-    </main>
+        </div>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <Button asChild className="justify-start" variant="secondary">
+            <Link href="/account/bookings/new">
+              <CalendarDays aria-hidden="true" className="size-4" />
+              New booking
+            </Link>
+          </Button>
+          <Button asChild className="justify-start" variant="outline">
+            <Link href="/account/bookings">
+              <CreditCard aria-hidden="true" className="size-4" />
+              Checkout
+            </Link>
+          </Button>
+          <Button asChild className="justify-start" variant="outline">
+            <Link href="/account/customers">
+              <Contact aria-hidden="true" className="size-4" />
+              Customers
+            </Link>
+          </Button>
+          <Button asChild className="justify-start" variant="outline">
+            <Link href="/account/settings">
+              <Settings2 aria-hidden="true" className="size-4" />
+              Settings
+            </Link>
+          </Button>
+        </div>
+      </section>
+
+      <section aria-labelledby="operations-heading">
+        <div>
+          <h2
+            className="font-serif text-2xl font-semibold"
+            id="operations-heading"
+          >
+            Business operations
+          </h2>
+          <p className="text-muted-foreground mt-2 text-sm">
+            Open a workspace without inventing analytics or unavailable totals.
+          </p>
+        </div>
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {modules.map((module) => {
+            const Icon = module.icon;
+            return (
+              <MetricCard
+                description={module.description}
+                href={module.href}
+                icon={<Icon aria-hidden="true" className="size-5" />}
+                key={module.href}
+                label={module.label}
+              />
+            );
+          })}
+        </div>
+      </section>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <ShieldCheck aria-hidden="true" className="text-success size-5" />
+            Secure operations
+          </CardTitle>
+          <CardDescription>
+            Authentication, permissions, workflow rules, and financial
+            protections remain unchanged.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="pt-4">
+          <p className="text-muted-foreground text-sm leading-6">
+            Use the profile menu in the top navigation to manage the active
+            Clerk session.
+          </p>
+        </CardContent>
+      </Card>
+    </AuthenticatedPageShell>
   );
 }

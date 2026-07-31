@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Pagination } from "@/components/management/pagination";
 import { Button } from "@/components/ui/button";
+import { ResponsiveTable } from "@/components/ui/responsive-table";
 import { transitionBookingStatusAction } from "@/features/appointments/actions/appointment-workflow.actions";
 import { AppointmentWorkflowControls } from "@/features/appointments/presentation/appointment-workflow-controls";
 import { BookingTransitionForm } from "@/features/appointments/presentation/booking-transition-form";
@@ -36,8 +37,8 @@ export function BookingWorkflowList({
   return (
     <section className="grid gap-5">
       <AppointmentWorkflowControls filters={filters} options={options} />
-      <div className="border-border overflow-x-auto border">
-        <table className="w-full min-w-[68rem] text-left text-sm">
+      <ResponsiveTable label="Appointment workflow">
+        <table className="data-table min-w-[68rem] text-left text-sm">
           <thead className="bg-muted text-muted-foreground">
             <tr>
               <th className="px-4 py-3">Start</th>
@@ -111,7 +112,7 @@ export function BookingWorkflowList({
             )}
           </tbody>
         </table>
-      </div>
+      </ResponsiveTable>
       <Pagination
         pageParam="page"
         pagination={result.pagination}

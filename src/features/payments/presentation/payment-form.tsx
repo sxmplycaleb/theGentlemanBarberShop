@@ -118,7 +118,7 @@ export function PaymentForm({
     <div className="grid gap-6 lg:grid-cols-2">
       <form
         action={partialFormAction}
-        className="border-border grid content-start gap-4 border p-6"
+        className="border-border bg-card grid content-start gap-4 rounded-lg border p-6 shadow-sm"
       >
         <div>
           <h2 className="text-xl font-semibold">Record partial payment</h2>
@@ -153,7 +153,7 @@ export function PaymentForm({
 
       <form
         action={completeFormAction}
-        className="border-border grid content-start gap-4 border p-6"
+        className="border-border bg-card grid content-start gap-4 rounded-lg border p-6 shadow-sm"
       >
         <div>
           <h2 className="text-xl font-semibold">Full checkout</h2>

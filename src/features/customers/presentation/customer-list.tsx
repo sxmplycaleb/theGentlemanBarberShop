@@ -4,6 +4,7 @@ import { ManagementControls } from "@/components/management/management-controls"
 import { Pagination } from "@/components/management/pagination";
 import { StatusBadge } from "@/components/management/status-badge";
 import { Button } from "@/components/ui/button";
+import { ResponsiveTable } from "@/components/ui/responsive-table";
 import {
   restoreCustomerAction,
   setCustomerActiveAction,
@@ -75,8 +76,8 @@ export function CustomerList({
         sortOptions={customerSortOptions}
       />
 
-      <div className="border-border overflow-x-auto border">
-        <table className="w-full min-w-[64rem] border-collapse text-left text-sm">
+      <ResponsiveTable label="Customers">
+        <table className="data-table min-w-[64rem] text-left text-sm">
           <thead className="bg-muted text-muted-foreground">
             <tr>
               <th className="px-4 py-3 font-medium">Name</th>
@@ -171,7 +172,7 @@ export function CustomerList({
             )}
           </tbody>
         </table>
-      </div>
+      </ResponsiveTable>
 
       <Pagination
         pageParam="page"

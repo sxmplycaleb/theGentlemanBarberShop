@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Pagination } from "@/components/management/pagination";
 import { Button } from "@/components/ui/button";
+import { ResponsiveTable } from "@/components/ui/responsive-table";
 import {
   restoreBookingAction,
   softDeleteBookingAction,
@@ -60,8 +61,8 @@ export function BookingList({
 
       <BookingManagementControls filters={filters} options={options} />
 
-      <div className="border-border overflow-x-auto border">
-        <table className="w-full min-w-[72rem] border-collapse text-left text-sm">
+      <ResponsiveTable label="Bookings">
+        <table className="data-table min-w-[72rem] text-left text-sm">
           <thead className="bg-muted text-muted-foreground">
             <tr>
               <th className="px-4 py-3 font-medium">Date</th>
@@ -152,7 +153,7 @@ export function BookingList({
             )}
           </tbody>
         </table>
-      </div>
+      </ResponsiveTable>
 
       <Pagination
         pageParam="page"

@@ -30,7 +30,7 @@ export function BookingManagementControls({
   options,
 }: BookingManagementControlsProps) {
   return (
-    <form className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+    <form className="border-border bg-card grid gap-4 rounded-lg border p-4 shadow-sm md:grid-cols-2 xl:grid-cols-5">
       <input name="page" type="hidden" value="1" />
       <label className="grid gap-2 text-sm md:col-span-2">
         <span className="text-muted-foreground">Booking search</span>
@@ -128,7 +128,7 @@ export function BookingManagementControls({
         ]}
       />
       <button
-        className="bg-primary text-primary-foreground min-h-11 rounded-sm px-4 text-sm font-medium xl:col-start-5"
+        className="bg-primary text-primary-foreground hover:bg-primary/90 min-h-11 rounded-sm px-4 text-sm font-semibold shadow-xs xl:col-start-5"
         type="submit"
       >
         Apply

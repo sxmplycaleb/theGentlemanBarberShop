@@ -5,16 +5,13 @@ interface StatusBadgeProps {
 
 export function StatusBadge({ deletedAt, isActive }: StatusBadgeProps) {
   if (deletedAt) {
-    return (
-      <span className="border-border text-muted-foreground inline-flex min-h-7 items-center rounded-sm border px-2 text-xs">
-        Deleted
-      </span>
-    );
+    return <Badge variant="outline">Deleted</Badge>;
   }
 
   return (
-    <span className="border-border inline-flex min-h-7 items-center rounded-sm border px-2 text-xs">
+    <Badge variant={isActive ? "success" : "warning"}>
       {isActive ? "Active" : "Inactive"}
-    </span>
+    </Badge>
   );
 }
+import { Badge } from "@/components/ui/badge";

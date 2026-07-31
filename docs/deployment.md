@@ -11,6 +11,25 @@ npm run build
 Next.js emits its standard optimized production artifact for a supported Node.js
 hosting environment or managed Next.js platform.
 
+## Milestone 11 Visual Release Checks
+
+Before promotion, capture and retain deployment screenshots for the landing,
+sign-in, dashboard, representative list, form, appointment detail, checkout,
+and settings pages in both themes. Capture desktop, tablet, and mobile
+viewports. Screenshots must use non-sensitive test data and must not expose
+Clerk identifiers, payment references, customer contact details, or deployment
+secrets.
+
+Verify alongside the screenshots:
+
+1. No page-level horizontal overflow.
+2. The responsive table region contains wide data on small screens.
+3. Sidebar collapse and mobile drawer dismissal work with keyboard input.
+4. Theme preference survives reload and defaults to the operating-system
+   preference when no stored choice exists.
+5. Representative authenticated pages score at least 95 for Lighthouse
+   Accessibility using an approved authenticated test session.
+
 ## Runtime Requirements
 
 - Node.js 22 or newer

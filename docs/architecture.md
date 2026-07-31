@@ -2,7 +2,13 @@
 
 ## Scope
 
-Milestone 10 adds authenticated Payments & Checkout on top of the
+Milestone 11 modernizes presentation across the established foundation,
+authentication, management features, Appointment Workflow, and Payments &
+Checkout. It adds no domain behavior and does not change routing, repositories,
+validation, Server Actions, authentication, database access, or feature
+ownership.
+
+Milestone 10 added authenticated Payments & Checkout on top of the
 established foundation, Clerk authentication, Supabase database foundation,
 Services Management, Staff Management, Business Settings, Customer Management,
 Booking Management, and Appointment Workflow architecture.
@@ -88,6 +94,17 @@ Generic management presentation primitives that are shared by feature forms
 live under `src/components/management/`. The `app` directory remains a
 composition layer: account routes protect pages with Clerk, load feature data,
 and render feature presentation.
+
+Application-wide presentation primitives live under `src/components/ui/`.
+`src/components/layout/` owns the interactive authenticated shell. The shell is
+a narrow Client Component because navigation collapse, mobile dismissal, theme
+selection, and the Clerk profile control require browser interaction. Feature
+data loading remains in existing Server Component routes, and feature content
+is passed into the shell as rendered children.
+
+Theme initialization runs in the root document before hydration. Semantic CSS
+tokens provide light and dark palettes, state colors, spacing, radius,
+elevation, focus, and motion without feature-owned colors.
 
 ## Import Policy
 

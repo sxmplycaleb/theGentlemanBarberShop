@@ -4,9 +4,9 @@ import { buttonVariants } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <main className="bg-background text-foreground grid min-h-dvh place-items-center px-6">
-      <section className="border-border w-full max-w-xl border-y py-12 text-center">
-        <p className="text-accent-foreground text-sm font-medium">404</p>
+    <main className="bg-background text-foreground grid min-h-dvh place-items-center px-4">
+      <section className="border-border bg-card w-full max-w-xl rounded-lg border p-8 text-center shadow-md sm:p-12">
+        <p className="text-primary text-sm font-semibold">404</p>
         <h1 className="mt-4 font-serif text-4xl font-semibold">
           Page not found
         </h1>

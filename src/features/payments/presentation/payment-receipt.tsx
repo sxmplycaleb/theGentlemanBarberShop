@@ -32,7 +32,7 @@ export function PaymentReceipt({
 }) {
   return (
     <article
-      className="border-border grid gap-6 border p-6"
+      className="border-border bg-card grid gap-6 rounded-lg border p-6 shadow-sm"
       aria-label="Receipt"
     >
       <header className="border-border border-b pb-5">

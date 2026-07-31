@@ -15,7 +15,7 @@ export function AppointmentWorkflowControls({
   readonly options: BookingWorkflowOptions;
 }) {
   return (
-    <form className="grid gap-3 md:grid-cols-2 xl:grid-cols-6">
+    <form className="border-border bg-card grid gap-4 rounded-lg border p-4 shadow-sm md:grid-cols-2 xl:grid-cols-6">
       <input name="page" type="hidden" value="1" />
       <label className="grid gap-2 text-sm xl:col-span-2">
         <span className="text-muted-foreground">Search</span>

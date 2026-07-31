@@ -32,7 +32,10 @@ export function RefundForm({
     "border-border bg-background min-h-11 rounded-sm border px-3 text-sm";
 
   return (
-    <form action={formAction} className="border-border grid gap-4 border p-6">
+    <form
+      action={formAction}
+      className="border-border bg-card grid gap-4 rounded-lg border p-6 shadow-sm"
+    >
       <input name="booking_id" type="hidden" value={bookingId} />
       <input name="currency_code" type="hidden" value={currencyCode} />
       <input

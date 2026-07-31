@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import type { ActionState } from "@/features/customers/types/customer-management.types";
 
 interface CustomerActionFormProps {
@@ -36,9 +37,18 @@ export function CustomerActionForm({
           value={field.value}
         />
       ))}
-      <Button type="submit" variant="outline">
-        {children}
-      </Button>
+      {children === "Delete" ? (
+        <ConfirmationDialog
+          confirmLabel="Delete customer"
+          description="This customer will be moved to deleted records and can be restored later."
+          title="Delete this customer?"
+          triggerLabel="Delete"
+        />
+      ) : (
+        <Button type="submit" variant="outline">
+          {children}
+        </Button>
+      )}
       {state.message ? (
         <p className="sr-only" role={state.success ? "status" : "alert"}>
           {state.message}

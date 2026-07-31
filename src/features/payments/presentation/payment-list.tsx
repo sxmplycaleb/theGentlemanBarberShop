@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Pagination } from "@/components/management/pagination";
 import { Button } from "@/components/ui/button";
+import { ResponsiveTable } from "@/components/ui/responsive-table";
 import {
   PAYMENT_ENTRY_LABELS,
   PAYMENT_METHOD_LABELS,
@@ -33,8 +34,8 @@ export function PaymentList({
 }) {
   return (
     <div className="grid gap-4">
-      <div className="border-border overflow-x-auto border">
-        <table className="w-full min-w-[70rem] text-left text-sm">
+      <ResponsiveTable label="Payment history">
+        <table className="data-table min-w-[70rem] text-left text-sm">
           <thead className="bg-muted text-muted-foreground">
             <tr>
               <th className="px-4 py-3">Payment date</th>
@@ -97,7 +98,7 @@ export function PaymentList({
             )}
           </tbody>
         </table>
-      </div>
+      </ResponsiveTable>
       <Pagination
         pageParam={pageParam}
         pagination={result.pagination}

@@ -1,5 +1,6 @@
 "use client";
 
+import { LoaderCircle } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,17 @@ export function SubmitButton({ children }: SubmitButtonProps) {
 
   return (
     <Button disabled={pending} type="submit">
-      {pending ? "Saving" : children}
+      {pending ? (
+        <>
+          <LoaderCircle
+            aria-hidden="true"
+            className="size-4 animate-spin motion-reduce:animate-none"
+          />
+          Saving
+        </>
+      ) : (
+        children
+      )}
     </Button>
   );
 }

@@ -47,6 +47,12 @@ Vitest and Testing Library verify:
   cross-feature revalidation, and safe failures
 - Payment dashboard, checkout, partial/full payment, settled/cancelled states,
   receipt, refund, navigation, and accessible form presentation
+- Theme switching, preference persistence, and hydration-safe initialization
+- Authenticated navigation, breadcrumbs, sidebar collapse, mobile drawer,
+  profile control, and Escape dismissal
+- Responsive table containment and accessible region labelling
+- Accessible destructive confirmation behavior
+- Dashboard rendering without fabricated business metrics
 
 Coverage is collected with the V8 provider. The configured minimum is 80 percent
 for statements, branches, functions, and lines across the Milestone 0 foundation
@@ -62,6 +68,8 @@ Playwright runs Chromium in desktop and mobile profiles. It verifies:
 - The health endpoint responds successfully through the running application
 - The sign-in page shell renders
 - Anonymous visitors are redirected away from protected account access
+- Public light and dark presentation has no page-level horizontal overflow
+- Representative public surfaces pass automated Axe analysis
 
 Playwright starts the compiled Next.js production server. Run `npm run build`
 before `npm run test:e2e` when executing the checks individually.
@@ -79,6 +87,12 @@ backfill, immutable-ledger behavior, concurrent overpayment/refund rejection,
 RLS/grants, schema drift, generated type verification, database lint, and
 advisor checks remain pending until the approved Supabase development
 environment is available.
+
+Milestone 11 keeps authenticated data deterministic in component and route
+tests because no authenticated browser fixture or approved test account exists.
+The shell itself is exercised with keyboard and mobile-state presentation
+tests. Authenticated Axe and Lighthouse verification require an approved Clerk
+test session in the deployment environment.
 
 ## Local Commands
 

@@ -45,7 +45,7 @@ function FieldError({
   readonly id: string;
 }) {
   return errors?.length ? (
-    <p className="text-primary text-sm" id={id}>
+    <p className="text-danger text-sm font-medium" id={id}>
       {errors[0]}
     </p>
   ) : null;

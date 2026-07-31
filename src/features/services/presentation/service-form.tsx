@@ -34,7 +34,7 @@ function FieldError({
     return null;
   }
 
-  return <p className="text-primary text-sm">{errors[0]}</p>;
+  return <p className="text-danger text-sm font-medium">{errors[0]}</p>;
 }
 
 export function ServiceForm({

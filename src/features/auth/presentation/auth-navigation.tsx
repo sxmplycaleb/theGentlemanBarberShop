@@ -19,36 +19,42 @@ export function AuthNavigation() {
   const { isSignedIn } = useUser();
 
   return (
-    <nav aria-label="Authentication" className="flex items-center gap-3">
+    <nav
+      aria-label="Authentication"
+      className="flex items-center gap-1 sm:gap-2"
+    >
       {isSignedIn ? (
         <>
-          <Button asChild variant="outline">
+          <Button asChild size="sm" variant="outline">
             <Link href="/account" prefetch={false}>
               <UserRound
                 aria-hidden="true"
                 className="size-4"
                 strokeWidth={1.75}
               />
-              Account
+              <span className="hidden sm:inline">Account</span>
+              <span className="sr-only sm:hidden">Account</span>
             </Link>
           </Button>
           <SignOutButton redirectUrl={postSignOutUrl}>
-            <Button type="button" variant="outline">
+            <Button size="sm" type="button" variant="outline">
               <LogOut
                 aria-hidden="true"
                 className="size-4"
                 strokeWidth={1.75}
               />
-              Sign out
+              <span className="hidden sm:inline">Sign out</span>
+              <span className="sr-only sm:hidden">Sign out</span>
             </Button>
           </SignOutButton>
           <UserButton />
         </>
       ) : (
         <SignInButton fallbackRedirectUrl={postSignInUrl} mode="redirect">
-          <Button type="button" variant="outline">
+          <Button size="sm" type="button" variant="outline">
             <LogIn aria-hidden="true" className="size-4" strokeWidth={1.75} />
-            Sign in
+            <span className="hidden sm:inline">Sign in</span>
+            <span className="sr-only sm:hidden">Sign in</span>
           </Button>
         </SignInButton>
       )}

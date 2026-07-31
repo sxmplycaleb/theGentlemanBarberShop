@@ -14,7 +14,7 @@ export function PaymentManagementControls({
   const inputClass =
     "border-border bg-background min-h-11 rounded-sm border px-3 text-sm";
   return (
-    <form className="grid gap-3 md:grid-cols-2 xl:grid-cols-7">
+    <form className="border-border bg-card grid gap-4 rounded-lg border p-4 shadow-sm md:grid-cols-2 xl:grid-cols-7">
       <input name="page" type="hidden" value="1" />
       <label className="grid gap-2 text-sm xl:col-span-2">
         <span className="text-muted-foreground">Payment search</span>
@@ -96,7 +96,7 @@ export function PaymentManagementControls({
         </select>
       </label>
       <button
-        className="bg-primary text-primary-foreground min-h-11 rounded-sm px-4 text-sm font-medium xl:self-end"
+        className="bg-primary text-primary-foreground hover:bg-primary/90 min-h-11 rounded-sm px-4 text-sm font-semibold shadow-xs xl:self-end"
         type="submit"
       >
         Apply

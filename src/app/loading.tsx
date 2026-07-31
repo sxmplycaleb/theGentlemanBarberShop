@@ -5,11 +5,11 @@ export default function Loading() {
     <main
       aria-busy="true"
       aria-label="Loading"
-      className="bg-background text-foreground min-h-dvh px-6 py-8 sm:px-10 lg:px-12"
+      className="bg-background text-foreground min-h-dvh px-4 py-6 sm:px-6 lg:px-8"
     >
       <div className="mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-6xl flex-col">
-        <div className="border-border flex items-center gap-3 border-b pb-6">
-          <Skeleton className="size-10" />
+        <div className="border-border bg-card flex items-center gap-3 rounded-lg border p-4 shadow-sm">
+          <Skeleton className="size-10 rounded-md" />
           <Skeleton className="h-4 w-44" />
         </div>
         <div className="flex flex-1 flex-col justify-end gap-5 py-16 lg:py-20">

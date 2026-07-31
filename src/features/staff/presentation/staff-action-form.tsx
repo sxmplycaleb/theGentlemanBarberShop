@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import type { ActionState } from "@/features/staff/types/staff-management.types";
 
 interface StaffActionFormProps {
@@ -38,9 +39,18 @@ export function StaffActionForm({
           value={field.value}
         />
       ))}
-      <Button type="submit" variant="outline">
-        {children}
-      </Button>
+      {children === "Delete" ? (
+        <ConfirmationDialog
+          confirmLabel="Delete staff member"
+          description="This staff member will be moved to deleted records and can be restored later."
+          title="Delete this staff member?"
+          triggerLabel="Delete"
+        />
+      ) : (
+        <Button type="submit" variant="outline">
+          {children}
+        </Button>
+      )}
       {state.message ? (
         <p className="sr-only" role={state.success ? "status" : "alert"}>
           {state.message}

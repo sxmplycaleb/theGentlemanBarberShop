@@ -2,13 +2,14 @@
 
 Production business management platform for The Gentleman BarberShop and Spa.
 
-## Milestone 10
+## Milestone 11
 
 This repository currently contains the production project foundation, Clerk
 authentication integration, Supabase database foundation, core business schema
 foundation, Services Management, Staff Management, Business Settings
 Management, Customer Management, Booking Management, Appointment Workflow, and
-Payments & Checkout:
+Payments & Checkout, presented through a responsive application-wide design
+system:
 
 - Next.js App Router with strict TypeScript
 - Tailwind CSS and shadcn/ui configuration
@@ -44,6 +45,13 @@ Payments & Checkout:
 - ESLint, Prettier, Husky, and lint-staged
 - Vitest unit tests and Playwright end-to-end tests
 - GitHub Actions continuous integration
+- Semantic warm-cream light mode and espresso dark mode
+- Hydration-safe system theme detection and persisted user preference
+- Responsive authenticated dashboard shell with collapsible sidebar, mobile
+  drawer, active navigation, breadcrumbs, quick actions, and Clerk profile menu
+- Shared cards, alerts, badges, form feedback, confirmation, loading, empty,
+  pagination, and responsive table presentation
+- Keyboard-visible focus, reduced-motion support, and touch-friendly controls
 
 Appointment Workflow remains an operational layer over bookings and introduces
 no appointment table, entity, or API. Payments is an internal append-only
@@ -52,6 +60,10 @@ processing, payment gateways, callbacks, webhooks, invoices, taxes, discounts,
 tips, calendar integrations, notifications, reporting, analytics, customer
 authentication, RBAC, Supabase Auth, and Clerk user synchronization remain
 outside this milestone.
+
+Milestone 11 is presentation-only. It does not change feature ownership,
+repositories, validation, Server Actions, APIs, authentication behavior,
+database behavior, or business rules.
 
 ## Requirements
 
@@ -96,3 +108,5 @@ npx playwright install chromium
 - [Environment](docs/environment.md)
 - [Security](docs/security.md)
 - [Testing](docs/testing.md)
+- [Design system](docs/design-system.md)
+- [Component guidelines](docs/component-guidelines.md)

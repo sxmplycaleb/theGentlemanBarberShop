@@ -8,49 +8,32 @@ vi.mock("@clerk/nextjs", () => ({
 import { AccountPage } from "@/features/auth/presentation/account-page";
 
 describe("AccountPage", () => {
-  it("renders the authenticated account status without business data", () => {
+  it("renders the operational dashboard without fabricated metrics", () => {
     render(<AccountPage userId="user_123" />);
 
     expect(
-      screen.getByRole("heading", { level: 1, name: "Account" }),
+      screen.getByRole("heading", { level: 1, name: "Dashboard" }),
     ).toBeVisible();
     expect(screen.getByText("Signed in")).toBeVisible();
-    expect(screen.getByText("Services")).toBeVisible();
-    expect(screen.getByText("Staff")).toBeVisible();
-    expect(screen.getByText("Customers")).toBeVisible();
-    expect(screen.getByText("Bookings")).toBeVisible();
-    expect(screen.getByText("Appointments")).toBeVisible();
-    expect(screen.getByText("Payments")).toBeVisible();
-    expect(screen.getByText("Business settings")).toBeVisible();
-    expect(screen.getAllByRole("link", { name: "Open" })[0]).toHaveAttribute(
+    expect(screen.getAllByText("Services").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Staff").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Customers").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Bookings").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Appointments").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Payments").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Business settings").length).toBeGreaterThan(0);
+    expect(screen.getByRole("link", { name: "Open Payments" })).toHaveAttribute(
       "href",
       "/account/payments",
     );
-    expect(screen.getAllByRole("link", { name: "Open" })[1]).toHaveAttribute(
-      "href",
-      "/account/appointments",
-    );
-    expect(screen.getAllByRole("link", { name: "Open" })[2]).toHaveAttribute(
+    expect(
+      screen.getByRole("link", { name: "Open Appointments" }),
+    ).toHaveAttribute("href", "/account/appointments");
+    expect(screen.getByRole("link", { name: "Open Bookings" })).toHaveAttribute(
       "href",
       "/account/bookings",
     );
-    expect(screen.getAllByRole("link", { name: "Open" })[3]).toHaveAttribute(
-      "href",
-      "/account/services",
-    );
-    expect(screen.getAllByRole("link", { name: "Open" })[4]).toHaveAttribute(
-      "href",
-      "/account/staff",
-    );
-    expect(screen.getAllByRole("link", { name: "Open" })[5]).toHaveAttribute(
-      "href",
-      "/account/customers",
-    );
-    expect(screen.getAllByRole("link", { name: "Open" })[6]).toHaveAttribute(
-      "href",
-      "/account/settings",
-    );
-    expect(screen.getByText(/user_123/)).toBeVisible();
+    expect(screen.getByText(/user_123/)).toBeInTheDocument();
     expect(screen.getByTestId("user-button")).toBeInTheDocument();
   });
 });

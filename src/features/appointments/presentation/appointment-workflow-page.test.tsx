@@ -37,7 +37,7 @@ describe("AppointmentWorkflowPage", () => {
     expect(
       screen.getByRole("heading", { name: "Appointment workflow" }),
     ).toBeVisible();
-    expect(screen.getByText("Business date: 2026-08-10")).toBeVisible();
+    expect(screen.getByText(/Business date: 2026-08-10/)).toBeVisible();
     expect(screen.getByTestId("booking-workflow-list")).toBeVisible();
   });
 });
